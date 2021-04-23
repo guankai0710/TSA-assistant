@@ -12,7 +12,7 @@ public enum ResultCode {
     SUCCESS(200, "成功"),
 
     // 参数错误：1001~1999
-    PARAM_IS_BLANK(1001, "参数为空"),
+    PARAM_IS_ERROR(1001, "参数异常"),
     PARAM_IS_INVALID(1002, "参数无效"),
     PARAM_NOT_EXIST(1003, "参数缺失"),
     PARAM_TYPE_BIND_ERROR(1004, "参数类型错误"),
@@ -27,6 +27,9 @@ public enum ResultCode {
     // 接口错误：3001~3999
     INTERFACE_CONNECTION_TIME_OUT(3001, "接口连接超时"),
 
+    // 客户端异常：
+    CLIENT_NOT_FOUND(404, "404异常"),
+
     // 服务器异常：500
     SERVER_ERROR(500, "服务器异常，请联系管理员");
 
@@ -34,10 +37,10 @@ public enum ResultCode {
 
 
     /** 状态码 */
-    public Integer code;
+    Integer code;
 
     /** 信息 */
-    public String msg;
+    String msg;
 
     ResultCode(Integer code, String msg) {
         this.code = code;
