@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @MapperScan(value = {"com.ryan.tsa.*.mapper"})
-@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
+@SpringBootApplication(scanBasePackages = "com.ryan.tsa", exclude = DruidDataSourceAutoConfigure.class)
 public class TsaApplication {
     public static void main(String[] args) {
         SpringApplication.run(TsaApplication.class, args);

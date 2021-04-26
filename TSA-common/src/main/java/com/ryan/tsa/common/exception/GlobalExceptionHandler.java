@@ -1,7 +1,7 @@
 package com.ryan.tsa.common.exception;
 
-import com.ryan.tsa.common.response.Result;
-import com.ryan.tsa.common.response.ResultCode;
+import com.ryan.tsa.common.vo.Result;
+import com.ryan.tsa.common.vo.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -22,23 +22,24 @@ public class MyAutoGenerator {
 
     public static void main(String[] args) {
 
-        // 填写代码生成的目录(需要修改)
+        /**  需要修改部分 */
+        // 填写代码生成的目录
         String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-auth";
-        //开发者信息(需要修改)
+        //开发者信息
         String author = "ryan";
-        //数据源配置（需要修改）
+        //数据源配置
         String dbUrl = "jdbc:mysql://121.41.230.125:3306/tsa_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
         String driverName = "com.mysql.cj.jdbc.Driver";
         String username = "root";
         String password = "Guan123,.";
 
-        //包信息（需要修改）
+        //包信息
         String parentPackageName = "com.ryan.tsa";
         String moduleName = "auth";
 
-        //表名（需要修改）
+        //表名
         String[] tableName = {"tsa_auth_person","tsa_auth_role"};
-        //表前缀 （需要修改）
+        //表前缀
         String tablePrefix = "tsa_auth_";
 
 

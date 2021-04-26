@@ -1,4 +1,4 @@
-package com.ryan.tsa.common.response;
+package com.ryan.tsa.common.vo;
 
 /**
  * 接口返回格式

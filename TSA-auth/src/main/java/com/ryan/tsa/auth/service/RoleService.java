@@ -1,7 +1,8 @@
 package com.ryan.tsa.auth.service;
 
-import com.ryan.tsa.auth.domain.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ryan.tsa.auth.domain.Role;
+import com.ryan.tsa.common.vo.PageVo;
 
 /**
  * <p>
@@ -12,5 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-04-23
  */
 public interface RoleService extends IService<Role> {
+
+    PageVo<Role> page(int pageNum, int pageSize);
 
 }
