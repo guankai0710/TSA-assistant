@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author ryan
- * @since 2021-04-23
+ * @since 2021-04-28
  */
 @RestController
 @RequestMapping("/auth/person")

@@ -2,6 +2,8 @@ package com.ryan.tsa.auth.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 角色
@@ -11,7 +13,9 @@ import lombok.Data;
  * @since 2021-04-23
  */
 @Data
-public class RoleVo {
+public class RoleVo implements Serializable {
+
+    private static final long serialVersionUID=1L;
 
     /**
      * 角色id
@@ -21,12 +25,12 @@ public class RoleVo {
     /**
      * 角色名称
      */
-    private String roleName;
+    private String name;
 
     /**
      * 备注
      */
-    private String roleMemo;
+    private String memo;
 
 
 }

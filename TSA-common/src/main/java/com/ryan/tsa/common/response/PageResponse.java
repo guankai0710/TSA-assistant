@@ -1,4 +1,4 @@
-package com.ryan.tsa.common.vo;
+package com.ryan.tsa.common.response;
 
 import com.github.pagehelper.Page;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2021/4/26
  **/
 @Data
-public class PageVo<T> implements Serializable {
+public class PageResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class PageVo<T> implements Serializable {
     /** 数据集合 */
     private List<T> list;
 
-    public PageVo(List<T> list) {
+    public PageResponse(List<T> list) {
         this.list = list;
         if (list instanceof Page) {
             Page page = (Page) list;
@@ -45,7 +45,7 @@ public class PageVo<T> implements Serializable {
         }
     }
 
-    public static <T> PageVo<T> of(List<T> list){
-        return new PageVo<T>(list);
+    public static <T> PageResponse<T> of(List<T> list){
+        return new PageResponse<T>(list);
     }
 }

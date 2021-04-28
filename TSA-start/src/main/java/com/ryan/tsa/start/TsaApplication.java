@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 项目启动类
  */
 @EnableTransactionManagement
-@MapperScan(value = {"com.ryan.tsa.*.mapper"})
+@MapperScan(value = {"com.ryan.tsa.**.mapper"})
 @SpringBootApplication(scanBasePackages = "com.ryan.tsa", exclude = DruidDataSourceAutoConfigure.class)
 public class TsaApplication {
     public static void main(String[] args) {

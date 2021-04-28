@@ -2,6 +2,8 @@ package com.ryan.tsa.auth.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 用户 
@@ -11,7 +13,9 @@ import lombok.Data;
  * @since 2021-04-23
  */
 @Data
-public class PersonVo {
+public class PersonVo implements Serializable {
+
+    private static final long serialVersionUID=1L;
 
     /**
      * 用户id
@@ -26,7 +30,7 @@ public class PersonVo {
     /**
      * 用户名称
      */
-    private String personName;
+    private String name;
 
     /**
      * 账号

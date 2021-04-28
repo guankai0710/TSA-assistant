@@ -9,6 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+    <modules>
+        <module>TSA-miniapp-product</module>
+    </modules>
 
     <artifactId>TSA-miniapp</artifactId>
 

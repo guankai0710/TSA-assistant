@@ -1,7 +1,11 @@
 package com.ryan.tsa.auth.mapper;
 
-import com.ryan.tsa.auth.domain.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryan.tsa.auth.domain.Role;
+import com.ryan.tsa.auth.qo.RoleQo;
+import com.ryan.tsa.auth.vo.RoleVo;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,9 +15,12 @@ import java.util.List;
  * </p>
  *
  * @author ryan
- * @since 2021-04-23
+ * @since 2021-04-28
  */
+@Repository
+@Mapper
 public interface RoleMapper extends BaseMapper<Role> {
 
-    List<Role> getList();
+    List<RoleVo> queryList(RoleQo qo);
+
 }

@@ -1,4 +1,4 @@
-package com.ryan.tsa.common.vo;
+package com.ryan.tsa.common.response;
 
 /**
  * 返回状态码枚举类

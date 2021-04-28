@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author ryan
- * @since 2021-04-23
+ * @since 2021-04-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,32 +31,32 @@ public class Role implements Serializable {
     /**
      * 角色名称
      */
-    @TableField("role_name")
-    private String roleName;
+    @TableField("name")
+    private String name;
 
     /**
      * 备注
      */
-    @TableField("role_memo")
-    private String roleMemo;
+    @TableField("memo")
+    private String memo;
+
+    /**
+     * 创建时间
+     */
+    @TableField(value = "created_time",fill = FieldFill.INSERT)
+    private Date createdTime;
+
+    /**
+     * 更新时间
+     */
+    @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
+    private Date updatedTime;
 
     /**
      * 是否删除(1:是；0:否)
      */
     @TableField("deleted")
     private String deleted;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "created_time",fill = FieldFill.INSERT)
-    private String createdTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
-    private String updatedTime;
 
 
 }

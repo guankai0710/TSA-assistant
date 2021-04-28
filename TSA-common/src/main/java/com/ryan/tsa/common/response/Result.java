@@ -1,4 +1,8 @@
-package com.ryan.tsa.common.vo;
+package com.ryan.tsa.common.response;
+
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 接口返回格式
@@ -6,7 +10,10 @@ package com.ryan.tsa.common.vo;
  * @author ryan
  * @date 2021/4/22
  */
-public class Result {
+@Data
+public class Result implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 状态码 */
     private Integer code;

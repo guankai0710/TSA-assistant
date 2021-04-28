@@ -2,6 +2,8 @@ package com.ryan.tsa.common.qo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 类描述：qo基类
  *
@@ -9,7 +11,9 @@ import lombok.Data;
  * @date 2021/4/25
  **/
 @Data
-public class BaseQo {
+public class BaseQo implements Serializable {
+
+    private static final long serialVersionUID=1L;
 
     /**
      * 页码
