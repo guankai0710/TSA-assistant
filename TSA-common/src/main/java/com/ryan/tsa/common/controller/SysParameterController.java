@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-28
  */
 @RestController
-@RequestMapping("/common/sys-parameter")
-public class SysParameterController {
+@RequestMapping("/tsa/common/sys-parameter")
+public class SysParameterController extends BaseController {
 
 }
 

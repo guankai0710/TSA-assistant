@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-28
  */
 @RestController
-@RequestMapping("/common/sys-dictionary")
-public class SysDictionaryController {
+@RequestMapping("/tsa/common/sys-dictionary")
+public class SysDictionaryController extends BaseController {
 
 }
 

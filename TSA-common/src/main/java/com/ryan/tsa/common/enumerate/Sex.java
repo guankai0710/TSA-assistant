@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 类描述：是/否 枚举类
+ * 类描述：性别 枚举类
  *
  * @author ryan
  * @date 2021/4/28
  **/
-public enum YesOrNo {
+public enum Sex {
 
-    YES(1,"是"),
-    NO(0,"否");
+    MAN(1,"男"),
+    WOMAN(0,"女");
 
     public Integer value;
 
@@ -28,13 +28,13 @@ public enum YesOrNo {
         return name;
     }
 
-    YesOrNo(Integer value, String name) {
+    Sex(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
 
-    public static YesOrNo getByValue(Integer value) {
-        for (YesOrNo obj : YesOrNo.values()) {
+    public static Sex getByValue(Integer value) {
+        for (Sex obj : Sex.values()) {
             if (value.equals(obj.getValue())){
                 return obj;
             }
@@ -42,8 +42,8 @@ public enum YesOrNo {
         return null;
     }
 
-    public static YesOrNo getByName(String name) {
-        for (YesOrNo obj : YesOrNo.values()) {
+    public static Sex getByName(String name) {
+        for (Sex obj : Sex.values()) {
             if (name.equals(obj.getName())){
                 return obj;
             }
@@ -53,7 +53,7 @@ public enum YesOrNo {
 
     public static List<Map<String,Object>> getMaps() {
         List<Map<String ,Object>> list = new ArrayList<>();
-        for (YesOrNo obj : YesOrNo.values()) {
+        for (Sex obj : Sex.values()) {
             Map<String,Object> map = new HashMap<>(16);
             map.put("value",obj.value);
             map.put("name",obj.name);

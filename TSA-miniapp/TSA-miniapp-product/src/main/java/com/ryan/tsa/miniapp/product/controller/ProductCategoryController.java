@@ -1,6 +1,7 @@
 package com.ryan.tsa.miniapp.product.controller;
 
 
+import com.ryan.tsa.common.controller.BaseController;
 import com.ryan.tsa.common.response.Result;
 import com.ryan.tsa.miniapp.product.qo.ProductCategoryQo;
 import com.ryan.tsa.miniapp.product.service.ProductCategoryService;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-28
  */
 @RestController
-@RequestMapping("/miniapp/product/product-category")
-public class ProductCategoryController {
+@RequestMapping("/tsa/miniapp/product/product-category")
+public class ProductCategoryController extends BaseController {
 
     @Autowired
     private ProductCategoryService productCategoryService;

@@ -4,6 +4,7 @@ package com.ryan.tsa.auth.controller;
 import com.ryan.tsa.auth.qo.RoleQo;
 import com.ryan.tsa.auth.service.RoleService;
 import com.ryan.tsa.auth.vo.RoleVo;
+import com.ryan.tsa.common.controller.BaseController;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-28
  */
 @RestController
-@RequestMapping("/auth/role")
-public class RoleController {
+@RequestMapping("/tsa/auth/role")
+public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;

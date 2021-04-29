@@ -45,7 +45,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "notNull": true,
@@ -157,7 +157,7 @@
             },
             {
               "name": "sex",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "性别(1:男；2:女)"
             },
@@ -187,7 +187,7 @@
             },
             {
               "name": "onlined",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否在线(1:是；0:否)",
               "notNull": true,
@@ -195,7 +195,7 @@
             },
             {
               "name": "enabled",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否启用(1:是；0:否)",
               "notNull": true,
@@ -217,7 +217,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "notNull": true,
@@ -360,7 +360,7 @@
             },
             {
               "name": "star",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "推荐星级"
             },
@@ -390,7 +390,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "defaultValue": "0"
@@ -483,7 +483,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "defaultValue": "0"
@@ -611,7 +611,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "defaultValue": "0"
@@ -734,7 +734,7 @@
             },
             {
               "name": "deleted",
-              "type": "Char",
+              "type": "tinyint",
               "remark": "",
               "chnname": "是否删除(1:是；0:否)",
               "defaultValue": "0"
@@ -1195,6 +1195,18 @@
           },
           "PostgreSQL": {
             "type": "CHAR(1)"
+          }
+        }
+      },
+      {
+        "name": "单整数",
+        "code": "tinyint",
+        "apply": {
+          "MYSQL": {
+            "type": "tinyint"
+          },
+          "JAVA": {
+            "type": "Integer"
           }
         }
       }

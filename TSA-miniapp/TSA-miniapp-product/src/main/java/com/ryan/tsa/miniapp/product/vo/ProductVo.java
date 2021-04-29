@@ -36,7 +36,7 @@ public class ProductVo implements Serializable {
     /**
      * 推荐星级
      */
-    private String star;
+    private Integer star;
 
     /**
      * 起购金额

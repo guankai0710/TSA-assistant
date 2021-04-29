@@ -31,7 +31,7 @@ public class PersonQo extends BaseQo implements Serializable {
     /**
      * 是否启用(1:是；0:否)
      */
-    private String enabled;
+    private Integer enabled;
 
 
 }

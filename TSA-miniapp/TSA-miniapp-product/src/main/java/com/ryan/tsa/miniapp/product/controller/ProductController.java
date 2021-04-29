@@ -1,6 +1,7 @@
 package com.ryan.tsa.miniapp.product.controller;
 
 
+import com.ryan.tsa.common.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-28
  */
 @RestController
-@RequestMapping("/miniapp/product/product")
-public class ProductController {
+@RequestMapping("/tsa/miniapp/product/product")
+public class ProductController extends BaseController {
 
 }
 

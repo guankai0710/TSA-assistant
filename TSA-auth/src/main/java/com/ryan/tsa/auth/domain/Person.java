@@ -68,7 +68,7 @@ public class Person implements Serializable {
      * 性别(1:男；2:女)
      */
     @TableField("sex")
-    private String sex;
+    private Integer sex;
 
     /**
      * 年龄
@@ -98,13 +98,13 @@ public class Person implements Serializable {
      * 是否在线(1:是；0:否)
      */
     @TableField("onlined")
-    private String onlined;
+    private Integer onlined;
 
     /**
      * 是否启用(1:是；0:否)
      */
     @TableField("enabled")
-    private String enabled;
+    private Integer enabled;
 
     /**
      * 创建时间
@@ -122,7 +122,7 @@ public class Person implements Serializable {
      * 是否删除(1:是；0:否)
      */
     @TableField("deleted")
-    private String deleted;
+    private Integer deleted;
 
 
 }

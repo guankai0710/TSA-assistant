@@ -24,6 +24,9 @@ public enum ResultCode {
     USER_NOT_EXIST(2004, "用户不存在"),
     USER_HAS_EXISTED(2005, "用户已存在"),
 
+    TOKEN_NOT_EXIST(2006, "Token缺失"),
+    TOKEN_ERROR(2007, "Token异常或过期"),
+
     // 接口错误：3001~3999
     INTERFACE_CONNECTION_TIME_OUT(3001, "接口连接超时"),
 
@@ -41,6 +44,14 @@ public enum ResultCode {
 
     /** 信息 */
     String msg;
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
 
     ResultCode(Integer code, String msg) {
         this.code = code;

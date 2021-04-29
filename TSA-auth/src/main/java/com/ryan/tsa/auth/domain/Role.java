@@ -56,7 +56,7 @@ public class Role implements Serializable {
      * 是否删除(1:是；0:否)
      */
     @TableField("deleted")
-    private String deleted;
+    private Integer deleted;
 
 
 }

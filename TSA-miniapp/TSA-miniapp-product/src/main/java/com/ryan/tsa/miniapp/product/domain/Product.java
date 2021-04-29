@@ -46,7 +46,7 @@ public class Product implements Serializable {
      * 推荐星级
      */
     @TableField("star")
-    private String star;
+    private Integer star;
 
     /**
      * 起购金额
@@ -76,7 +76,7 @@ public class Product implements Serializable {
      * 是否删除(1:是；0:否)
      */
     @TableField("deleted")
-    private String deleted;
+    private Integer deleted;
 
 
 }
