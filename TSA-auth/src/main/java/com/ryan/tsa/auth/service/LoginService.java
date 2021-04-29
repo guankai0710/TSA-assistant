@@ -10,6 +10,22 @@ import com.ryan.tsa.common.response.Result;
  **/
 public interface LoginService {
 
+    /**
+     * 登录
+     *
+     * @param account 账号
+     * @param password 密码
+     * @return
+     */
     Result login(String account, String password);
+
+    /**
+     * 注册
+     *
+     * @param account 账号
+     * @param password 密码
+     * @return
+     */
+    Result logon(String account, String password);
 
 }

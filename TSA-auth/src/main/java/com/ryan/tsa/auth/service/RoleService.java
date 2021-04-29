@@ -16,6 +16,20 @@ import com.ryan.tsa.common.response.PageResponse;
  */
 public interface RoleService extends IService<Role> {
 
+    /**
+     * 分页查询
+     *
+     * @param qo 查询条件
+     * @return
+     */
     PageResponse<RoleVo> pageList(RoleQo qo);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    boolean bacthDelete(String ids);
 
 }

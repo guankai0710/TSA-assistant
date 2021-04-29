@@ -24,12 +24,29 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * 登录
+     *
+     * @param account 账号
+     * @param password 密码
+     * @return
+     */
     @PostMapping("/login")
     public Result login(@RequestParam("account") String account, @RequestParam("password") String password){
         return loginService.login(account, password);
     }
 
-
+    /**
+     * 注册
+     *
+     * @param account 账号
+     * @param password 密码
+     * @return
+     */
+    @PostMapping("/logon")
+    public Result logon(@RequestParam("account") String account, @RequestParam("password") String password){
+        return loginService.logon(account, password);
+    }
 
 
 }

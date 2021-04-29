@@ -11,6 +11,7 @@ import com.ryan.tsa.common.response.PageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,5 +35,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         PageHelper.startPage(qo.getPageNum(),qo.getPageSize());
         List<RoleVo> roleVos = roleMapper.queryList(qo);
         return PageResponse.of(roleVos);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean bacthDelete(String ids) {
+        roleMapper.bacthDelete(ids);
+        return true;
     }
 }

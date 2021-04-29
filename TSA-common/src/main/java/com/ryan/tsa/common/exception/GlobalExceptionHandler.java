@@ -6,8 +6,10 @@ import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 
@@ -27,10 +29,34 @@ public class GlobalExceptionHandler {
      * @param exception 异常
      * @return
      */
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class, BindException.class})
+    @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
     public Result methodArgumentNotValidExceptionHandler(Exception exception) {
         log.error("GlobalExceptionHandler 请求参数异常：", exception);
         return Result.failure(ResultCode.PARAM_IS_ERROR);
+    }
+
+    /**
+     * 请求参数缺失异常
+     *
+     * @param exception 异常
+     * @return
+     */
+    @ExceptionHandler(value = {MissingServletRequestParameterException.class})
+    public Result missingServletRequestParameterExceptionHandler(Exception exception) {
+        log.error("GlobalExceptionHandler 请求参数异常：", exception);
+        return Result.failure(ResultCode.PARAM_NOT_EXIST);
+    }
+
+    /**
+     * 请求参数类型异常
+     *
+     * @param exception 异常
+     * @return
+     */
+    @ExceptionHandler(value = {MethodArgumentTypeMismatchException.class})
+    public Result methodArgumentTypeMismatchExceptionHandler(Exception exception) {
+        log.error("GlobalExceptionHandler 请求参数异常：", exception);
+        return Result.failure(ResultCode.PARAM_TYPE_BIND_ERROR);
     }
 
     /**

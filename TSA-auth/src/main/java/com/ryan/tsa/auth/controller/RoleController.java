@@ -9,6 +9,7 @@ import com.ryan.tsa.common.controller.BaseController;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -53,7 +54,7 @@ public class RoleController extends BaseController {
         Role role = new Role();
         role.setName(roleName);
         role.setMemo(memo);
-        return Result.success(restResult(roleService.saveOrUpdate(role)));
+        return Result.success(restResult(roleService.save(role)));
     }
 
     /**
@@ -75,6 +76,16 @@ public class RoleController extends BaseController {
         return Result.success(restResult(roleService.saveOrUpdate(role)));
     }
 
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    @PostMapping("/delete")
+    public Result delete(@RequestParam("ids") String ids){
+        return Result.success(restResult(roleService.bacthDelete(ids)));
+    }
 
 }
 

@@ -11,6 +11,7 @@ import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.utils.EncoderOfMd5Util;
 import com.ryan.tsa.common.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +55,22 @@ public class LoginServiceImpl implements LoginService {
         return Result.success(loginVo);
     }
 
+    @Override
+    public Result logon(String account, String password) {
+        Person person = personService.getByAccount(account);
+        if (person != null){
+            return Result.failure(ResultCode.USER_HAS_EXISTED);
+        }
+        String salt = RandomStringUtils.randomAlphabetic(32);
+        Person newPerson = new Person();
+        newPerson.setAccount(account);
+        newPerson.setPassword(EncoderOfMd5Util.getSaltMD5(password,salt));
+        newPerson.setEncryptsalt(salt);
+        //注册只能注册客户角色用户
+        newPerson.setRoleId(3);
+        boolean result = personService.save(newPerson);
+        Map<String, Boolean> resultMap = new HashMap<>(2);
+        resultMap.put("result", result);
+        return Result.success(resultMap);
+    }
 }

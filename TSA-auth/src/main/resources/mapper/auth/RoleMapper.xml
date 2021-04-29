@@ -16,5 +16,13 @@
         </where>
     </select>
 
+    <update id="bacthDelete" parameterType="java.lang.String">
+        UPDATE
+            tsa_auth_role
+        SET
+            deleted = 1
+        WHERE
+            role_id in (#{ids})
+    </update>
 
 </mapper>

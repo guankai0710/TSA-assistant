@@ -5,6 +5,7 @@ import com.ryan.tsa.auth.domain.Role;
 import com.ryan.tsa.auth.qo.RoleQo;
 import com.ryan.tsa.auth.vo.RoleVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +22,19 @@ import java.util.List;
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
 
+    /**
+     * 分页查询
+     *
+     * @param qo 查询条件
+     * @return
+     */
     List<RoleVo> queryList(RoleQo qo);
 
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    void bacthDelete(@Param("ids") String ids);
 }

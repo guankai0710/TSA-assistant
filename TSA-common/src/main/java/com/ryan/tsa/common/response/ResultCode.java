@@ -9,7 +9,7 @@ package com.ryan.tsa.common.response;
 public enum ResultCode {
 
     // 成功状态码：200
-    SUCCESS(200, "成功"),
+    SUCCESS(200, "请求成功"),
 
     // 参数错误：1001~1999
     PARAM_IS_ERROR(1001, "参数异常"),
