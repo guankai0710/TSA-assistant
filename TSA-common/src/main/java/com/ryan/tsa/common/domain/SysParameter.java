@@ -62,7 +62,7 @@ public class SysParameter implements Serializable {
      * 创建时间
      */
     @TableField(value = "created_time",fill = FieldFill.INSERT)
-    private Date createdTime;
+    private String createdTime;
 
     /**
      * 更新人
@@ -74,7 +74,7 @@ public class SysParameter implements Serializable {
      * 更新时间
      */
     @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
-    private Date updatedTime;
+    private String updatedTime;
 
     /**
      * 是否删除(1:是；0:否)

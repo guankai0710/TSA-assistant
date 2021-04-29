@@ -24,7 +24,6 @@ public class LoginVo implements Serializable {
      */
     private String name;
 
-
     /**
      * 头像
      */
@@ -39,8 +38,6 @@ public class LoginVo implements Serializable {
      * 性别(1:男；2:女)
      */
     private String sexCn;
-
-
 
     /**
      * Token令牌

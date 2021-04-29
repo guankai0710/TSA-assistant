@@ -45,7 +45,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         final String token = authHeader.substring(JwtUtil.TOKEN_PREFIX.length());
         // 验证token是否过期
-        if(!JwtUtil.checkToken(token) && JwtUtil.isExpiration(token)){
+        if(!JwtUtil.checkToken(token)){
             resultMap.put("code", ResultCode.TOKEN_ERROR.getCode());
             resultMap.put("msg", ResultCode.TOKEN_ERROR.getMsg());
             ServletOutputStream outputStream = response.getOutputStream();

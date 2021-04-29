@@ -29,8 +29,8 @@ public class JwtUtil {
 
     private static final String  CHARSET_NAME = "UTF-8";
 
-    /** Token过期时间  必须大于生效时间  当前3分钟 */
-    private static final Long TOKEN_EXPIRE_TIME = 3 * 60 * 1000L;
+    /** Token过期时间  必须大于生效时间  当前30分钟 */
+    private static final Long TOKEN_EXPIRE_TIME = 30 * 60 * 1000L;
 
     /** Token 加密/解密 盐 */
     private static final String TOKEN_SECRET = "gduh3ishfH42IjDD99IWIj12iajfJD68IJIjjo";
@@ -82,7 +82,8 @@ public class JwtUtil {
             builder.setClaims(map);
         }
 
-        String token = builder
+        String token = null;
+        token = builder
                 .setHeader(header)
                 .signWith(JWT_ALG, generateKey())
                 .setSubject(sub)
@@ -164,18 +165,4 @@ public class JwtUtil {
         return parseToken(token).getBody().getSubject().equals(sub);
     }
 
-    /**
-     * 是否已过期
-     * @param token
-     * @return
-     */
-    public static boolean isExpiration(String token) {
-        boolean isExpiration;
-        try {
-            isExpiration = parseToken(token).getBody().getExpiration().before(new Date( ));
-        } catch (ExpiredJwtException e) {
-            return true;
-        }
-        return isExpiration;
-    }
 }

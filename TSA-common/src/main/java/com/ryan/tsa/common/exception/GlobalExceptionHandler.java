@@ -2,6 +2,7 @@ package com.ryan.tsa.common.exception;
 
 import com.ryan.tsa.common.response.Result;
 import com.ryan.tsa.common.response.ResultCode;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,6 +43,18 @@ public class GlobalExceptionHandler {
     public Result noHandlerExceptionHandler(Exception exception) {
         log.error("GlobalExceptionHandler NoHandlerFoundException异常：", exception);
         return Result.failure(ResultCode.CLIENT_NOT_FOUND);
+    }
+
+    /**
+     * JWTtoken异常
+     *
+     * @param exception 异常
+     * @return
+     */
+    @ExceptionHandler(value = {JwtException.class})
+    public Result expiredJwtExceptionHandler(Exception exception) {
+        log.error("GlobalExceptionHandler JwtException异常：", exception);
+        return Result.failure(ResultCode.TOKEN_ERROR);
     }
 
     /**

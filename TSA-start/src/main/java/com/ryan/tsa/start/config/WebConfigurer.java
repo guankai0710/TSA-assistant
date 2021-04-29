@@ -18,9 +18,9 @@ public class WebConfigurer implements WebMvcConfigurer {
     /** 接口白名单 */
     private static final String[] EXCLUDE_PATHS = {
             /******************* 权限部分 *****************/
-            "/auth/login",
-            "/auth/logon",
-            "/auth/logout"
+            "/tsa/auth/login",
+            "/tsa/auth/logon",
+            "/tsa/auth/logout"
     };
 
 

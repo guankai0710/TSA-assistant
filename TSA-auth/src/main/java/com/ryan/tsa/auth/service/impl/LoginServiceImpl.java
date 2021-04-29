@@ -11,7 +11,6 @@ import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.utils.EncoderOfMd5Util;
 import com.ryan.tsa.common.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +46,7 @@ public class LoginServiceImpl implements LoginService {
         //生成token
         Map<String,Object> map = new HashMap<>(16);
         map.put("personId",person.getPersonId());
+        map.put("account",person.getAccount());
         map.put("roleId",person.getRoleId());
         String token = JwtUtil.createToken("TSA", map);
         LoginVo loginVo = new LoginVo(person.getName(), person.getAvatar(), person.getSex(), Sex.getByValue(person.getSex()).getName(), token);
