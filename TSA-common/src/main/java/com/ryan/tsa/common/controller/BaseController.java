@@ -17,6 +17,18 @@ import java.util.Map;
 public class BaseController {
 
     /**
+     * 获取token
+     *
+     * @param request
+     * @author guankai
+     * @date 2021/4/29
+     * @return
+     **/
+    protected String getToken(HttpServletRequest request){
+        return request.getHeader(JwtUtil.AUTH_HEADER_KEY).substring(JwtUtil.TOKEN_PREFIX.length());
+    }
+
+    /**
      * 解析token获取用户id
      *
      * @param request
@@ -25,8 +37,7 @@ public class BaseController {
      * @return
      **/
     protected Integer getPersonId(HttpServletRequest request){
-        String token = request.getHeader(JwtUtil.AUTH_HEADER_KEY).substring(JwtUtil.TOKEN_PREFIX.length());
-        Jws<Claims> claimsJws = JwtUtil.parseToken(token);
+        Jws<Claims> claimsJws = JwtUtil.parseToken(getToken(request));
         return Integer.valueOf(claimsJws.getBody().get("personId").toString());
     }
 
@@ -39,8 +50,7 @@ public class BaseController {
      * @return
      **/
     protected Integer getAccount(HttpServletRequest request){
-        String token = request.getHeader(JwtUtil.AUTH_HEADER_KEY).substring(JwtUtil.TOKEN_PREFIX.length());
-        Jws<Claims> claimsJws = JwtUtil.parseToken(token);
+        Jws<Claims> claimsJws = JwtUtil.parseToken(getToken(request));
         return Integer.valueOf(claimsJws.getBody().get("account").toString());
     }
 
@@ -53,8 +63,7 @@ public class BaseController {
      * @return
      **/
     protected Integer getRoleId(HttpServletRequest request){
-        String token = request.getHeader(JwtUtil.AUTH_HEADER_KEY).substring(JwtUtil.TOKEN_PREFIX.length());
-        Jws<Claims> claimsJws = JwtUtil.parseToken(token);
+        Jws<Claims> claimsJws = JwtUtil.parseToken(getToken(request));
         return Integer.valueOf(claimsJws.getBody().get("roleId").toString());
     }
 

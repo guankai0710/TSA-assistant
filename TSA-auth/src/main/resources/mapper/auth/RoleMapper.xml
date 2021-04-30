@@ -11,7 +11,10 @@
             tsa_auth_role
         <where>
             <if test="name != null and name != ''">
-                AND name = #{name}
+                AND name like concat('%', #{name, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="deleted != null">
+                AND deleted = #{deleted}
             </if>
         </where>
     </select>
@@ -20,7 +23,8 @@
         UPDATE
             tsa_auth_role
         SET
-            deleted = 1
+            deleted = 1,
+            updated_time = NOW()
         WHERE
             role_id in (#{ids})
     </update>

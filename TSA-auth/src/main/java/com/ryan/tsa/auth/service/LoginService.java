@@ -28,4 +28,14 @@ public interface LoginService {
      */
     Result logon(String account, String password);
 
+
+    /**
+     * 退出
+     *
+     * @param token
+     * @param personId 用户id
+     * @return
+     */
+    Result logon(String token, Integer personId);
+
 }

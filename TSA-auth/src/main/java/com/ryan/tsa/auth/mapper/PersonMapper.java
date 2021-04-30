@@ -2,9 +2,13 @@ package com.ryan.tsa.auth.mapper;
 
 import com.ryan.tsa.auth.domain.Person;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryan.tsa.auth.qo.PersonQo;
+import com.ryan.tsa.auth.vo.PersonVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +23,16 @@ import org.springframework.stereotype.Repository;
 public interface PersonMapper extends BaseMapper<Person> {
 
     /**
+     * 分页查询
+     *
+     * @param qo 查询条件
+     * @author guankai
+     * @date 2021/4/30
+     * @return
+     **/
+    List<PersonVo> queryList(PersonQo qo);
+
+    /**
      * 修改在线状态
      *
      * @param personId 用户id
@@ -28,5 +42,13 @@ public interface PersonMapper extends BaseMapper<Person> {
      * @return
      **/
     void updateOnlined(@Param("personId") Integer personId, @Param("onlined") Integer onlined);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    void bacthDelete(@Param("ids") String ids);
 
 }

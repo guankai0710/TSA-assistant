@@ -2,12 +2,15 @@ package com.ryan.tsa.auth.controller;
 
 
 import com.ryan.tsa.auth.service.LoginService;
+import com.ryan.tsa.common.controller.BaseController;
 import com.ryan.tsa.common.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/tsa/auth")
-public class LoginController {
+public class LoginController extends BaseController {
 
     @Autowired
     private LoginService loginService;
@@ -48,6 +51,17 @@ public class LoginController {
         return loginService.logon(account, password);
     }
 
+
+    /**
+     * 退出
+     *
+     * @param personId 用户id
+     * @return
+     */
+    @PostMapping("/logon")
+    public Result logon(HttpServletRequest request, @RequestParam("personId") Integer personId){
+        return loginService.logon(getToken(request), personId);
+    }
 
 }
 

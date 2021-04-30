@@ -1,7 +1,10 @@
 package com.ryan.tsa.auth.service;
 
-import com.ryan.tsa.auth.domain.Person;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ryan.tsa.auth.domain.Person;
+import com.ryan.tsa.auth.qo.PersonQo;
+import com.ryan.tsa.auth.vo.PersonVo;
+import com.ryan.tsa.common.response.PageResponse;
 
 /**
  * <p>
@@ -14,6 +17,26 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PersonService extends IService<Person> {
 
     /**
+     * 分页查询
+     *
+     * @param qo 查询条件
+     * @author guankai
+     * @date 2021/4/30
+     * @return
+     **/
+    PageResponse<PersonVo> pageList(PersonQo qo);
+
+    /**
+     * 根据用户id获取用户信息
+     *
+     * @param personId 用户id
+     * @author ryan
+     * @date 2021/4/29
+     * @return
+     **/
+    PersonVo getById(Integer personId);
+
+    /**
      * 根据账号获取用户信息
      *
      * @param account 账号
@@ -22,6 +45,16 @@ public interface PersonService extends IService<Person> {
      * @return
      **/
     Person getByAccount(String account);
+
+    /**
+     * 新增
+     *
+     * @param vo 用户信息
+     * @author guankai
+     * @date 2021/4/30
+     * @return
+     **/
+    boolean save(PersonVo vo);
 
     /**
      * 修改在线状态
@@ -33,5 +66,35 @@ public interface PersonService extends IService<Person> {
      * @return
      **/
     boolean updateOnlined(Integer personId, Integer onlined);
+
+    /**
+     * 修改密码
+     *
+     * @param personId 用户id
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @author guankai
+     * @date 2021/4/29
+     * @return
+     **/
+    boolean updatePwd(Integer personId, String oldPassword, String newPassword);
+
+    /**
+     * 重置密码
+     *
+     * @param personId 用户id
+     * @author guankai
+     * @date 2021/4/30
+     * @return
+     **/
+    boolean resetPwd(Integer personId);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    boolean bacthDelete(String ids);
 
 }

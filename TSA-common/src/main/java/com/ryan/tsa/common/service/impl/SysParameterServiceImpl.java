@@ -4,7 +4,9 @@ import com.ryan.tsa.common.domain.SysParameter;
 import com.ryan.tsa.common.mapper.SysParameterMapper;
 import com.ryan.tsa.common.service.SysParameterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ryan.tsa.common.vo.SysParameterVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,4 +21,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, SysParameter> implements SysParameterService {
 
+    @Autowired
+    private SysParameterMapper sysParameterMapper;
+
+    @Override
+    public SysParameterVo getByParamCode(String paramCode) {
+        return sysParameterMapper.getByParamCode(paramCode);
+    }
 }

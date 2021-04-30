@@ -1,15 +1,11 @@
 package com.ryan.tsa.auth.controller;
 
 
-import com.ryan.tsa.auth.domain.Role;
 import com.ryan.tsa.auth.qo.RoleQo;
 import com.ryan.tsa.auth.service.RoleService;
-import com.ryan.tsa.auth.vo.RoleVo;
 import com.ryan.tsa.common.controller.BaseController;
-import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -51,10 +47,7 @@ public class RoleController extends BaseController {
      **/
     @PostMapping("/save")
     public Result save(@RequestParam("roleName") String roleName, @RequestParam(value = "memo", required = false) String memo){
-        Role role = new Role();
-        role.setName(roleName);
-        role.setMemo(memo);
-        return Result.success(restResult(roleService.save(role)));
+        return Result.success(restResult(roleService.save(roleName, memo)));
     }
 
     /**
@@ -69,11 +62,7 @@ public class RoleController extends BaseController {
      **/
     @PostMapping("/update")
     public Result update(@RequestParam("roleId") Integer roleId, @RequestParam("roleName") String roleName, @RequestParam(value = "memo", required = false) String memo){
-        Role role = new Role();
-        role.setRoleId(roleId);
-        role.setName(roleName);
-        role.setMemo(memo);
-        return Result.success(restResult(roleService.saveOrUpdate(role)));
+        return Result.success(restResult(roleService.update(roleId, roleName, memo)));
     }
 
     /**

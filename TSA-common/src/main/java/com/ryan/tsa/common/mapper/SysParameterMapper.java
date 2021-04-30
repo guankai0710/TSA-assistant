@@ -2,7 +2,9 @@ package com.ryan.tsa.common.mapper;
 
 import com.ryan.tsa.common.domain.SysParameter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryan.tsa.common.vo.SysParameterVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,5 +18,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface SysParameterMapper extends BaseMapper<SysParameter> {
+
+    /**
+     * 根据参数编码查询
+     *
+     * @param paramCode 参数编码
+     * @author guankai
+     * @date 2021/4/30
+     * @return
+     **/
+    SysParameterVo getByParamCode(@Param("paramCode") String paramCode);
 
 }

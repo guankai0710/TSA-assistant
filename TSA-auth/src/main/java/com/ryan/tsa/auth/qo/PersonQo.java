@@ -29,6 +29,11 @@ public class PersonQo extends BaseQo implements Serializable {
     private String account;
 
     /**
+     * 是否在线(1:是；0:否)
+     */
+    private Integer onlined;
+
+    /**
      * 是否启用(1:是；0:否)
      */
     private Integer enabled;

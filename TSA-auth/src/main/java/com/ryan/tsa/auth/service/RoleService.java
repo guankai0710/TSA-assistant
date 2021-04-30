@@ -23,6 +23,28 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     PageResponse<RoleVo> pageList(RoleQo qo);
+    /**
+     * 新增
+     *
+     * @param roleName 角色名称
+     * @param memo 备注
+     * @author guankai
+     * @date 2021/4/29
+     * @return
+     **/
+    boolean save(String roleName, String memo);
+
+    /**
+     * 修改
+     *
+     * @param roleId 角色id
+     * @param roleName 角色名称
+     * @param memo 备注
+     * @author guankai
+     * @date 2021/4/29
+     * @return
+     **/
+    boolean update(Integer roleId, String roleName, String memo);
 
     /**
      * 批量删除

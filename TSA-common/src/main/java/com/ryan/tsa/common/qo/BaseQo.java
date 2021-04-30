@@ -1,5 +1,6 @@
 package com.ryan.tsa.common.qo;
 
+import com.ryan.tsa.common.enumerate.YesOrNo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,11 +26,17 @@ public class BaseQo implements Serializable {
      */
     private Integer pageSize;
 
+    // 使用分页插件后不需要自己计算
+//    /**
+//     * 获取分页开始位置
+//     * @return
+//     */
+//    public Integer getPageNum() {
+//        return ((this.pageNum-1) * this.pageSize);
+//    }
+
     /**
-     * 获取分页开始位置
-     * @return
+     * 是否删除(1:是；0:否)
      */
-    public Integer getPageNum() {
-        return ((this.pageNum-1) * this.pageSize);
-    }
+    private Integer deleted = YesOrNo.NO.getValue();
 }

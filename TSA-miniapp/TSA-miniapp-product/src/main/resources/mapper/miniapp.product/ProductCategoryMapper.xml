@@ -13,6 +13,9 @@
             <if test="name != null and name != ''">
                 AND name = #{name}
             </if>
+            <if test="deleted != null">
+                AND deleted = #{deleted}
+            </if>
         </where>
     </select>
 

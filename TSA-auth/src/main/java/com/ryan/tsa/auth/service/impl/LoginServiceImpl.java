@@ -73,4 +73,15 @@ public class LoginServiceImpl implements LoginService {
         resultMap.put("result", result);
         return Result.success(resultMap);
     }
+
+    @Override
+    public Result logon(String token, Integer personId) {
+        //todo  设置token过期
+
+        //修改用户在线状态
+        boolean result = personService.updateOnlined(personId, YesOrNo.NO.getValue());
+        Map<String, Boolean> resultMap = new HashMap<>(2);
+        resultMap.put("result", result);
+        return Result.success(resultMap);
+    }
 }

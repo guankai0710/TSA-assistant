@@ -39,6 +39,27 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public boolean save(String roleName, String memo) {
+        Role role = new Role();
+        role.setName(roleName);
+        role.setMemo(memo);
+        roleMapper.insert(role);
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean update(Integer roleId, String roleName, String memo) {
+        Role role = new Role();
+        role.setRoleId(roleId);
+        role.setName(roleName);
+        role.setMemo(memo);
+        roleMapper.updateById(role);
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public boolean bacthDelete(String ids) {
         roleMapper.bacthDelete(ids);
         return true;
