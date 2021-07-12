@@ -10,6 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>TSA-web-customer</module>
+        <module>TSA-web-business</module>
+    </modules>
+
     <artifactId>TSA-web</artifactId>
 
 

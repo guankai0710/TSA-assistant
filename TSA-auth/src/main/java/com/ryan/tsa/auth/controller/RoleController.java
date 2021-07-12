@@ -27,7 +27,7 @@ public class RoleController extends BaseController {
      * 分页查询
      *
      * @param qo 查询条件
-     * @author guankai
+     * @author ryan
      * @date 2021/4/29
      * @return
      **/
@@ -41,7 +41,7 @@ public class RoleController extends BaseController {
      *
      * @param roleName 角色名称
      * @param memo 备注
-     * @author guankai
+     * @author ryan
      * @date 2021/4/29
      * @return
      **/
@@ -56,7 +56,7 @@ public class RoleController extends BaseController {
      * @param roleId 角色id
      * @param roleName 角色名称
      * @param memo 备注
-     * @author guankai
+     * @author ryan
      * @date 2021/4/29
      * @return
      **/

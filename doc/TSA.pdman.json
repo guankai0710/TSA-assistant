@@ -331,221 +331,6 @@
       ]
     },
     {
-      "name": "TSA-miniapp-product",
-      "chnname": "产品",
-      "entities": [
-        {
-          "title": "tsa_app_product",
-          "fields": [
-            {
-              "name": "product_id",
-              "type": "Integer",
-              "remark": "",
-              "chnname": "产品id",
-              "pk": true,
-              "notNull": true,
-              "autoIncrement": true
-            },
-            {
-              "name": "product_category_id",
-              "type": "Integer",
-              "remark": "",
-              "chnname": "产品类别id"
-            },
-            {
-              "name": "name",
-              "type": "DefaultString",
-              "remark": "",
-              "chnname": "产品名称"
-            },
-            {
-              "name": "star",
-              "type": "tinyint",
-              "remark": "",
-              "chnname": "推荐星级"
-            },
-            {
-              "name": "least_amount",
-              "type": "Money",
-              "remark": "",
-              "chnname": "起购金额"
-            },
-            {
-              "name": "memo",
-              "type": "ShortString",
-              "remark": "",
-              "chnname": "备注"
-            },
-            {
-              "name": "created_time",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "创建时间"
-            },
-            {
-              "name": "updated_time",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "更新时间"
-            },
-            {
-              "name": "deleted",
-              "type": "tinyint",
-              "remark": "",
-              "chnname": "是否删除(1:是；0:否)",
-              "defaultValue": "0"
-            }
-          ],
-          "indexs": [],
-          "headers": [
-            {
-              "fieldName": "chnname",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "name",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "type",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "dataType",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "remark",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "pk",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "notNull",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "autoIncrement",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "defaultValue",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "relationNoShow",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "uiHint",
-              "relationNoShow": true
-            }
-          ],
-          "chnname": "产品信息"
-        },
-        {
-          "title": "tsa_app_product_category",
-          "fields": [
-            {
-              "name": "product_category_id",
-              "type": "Integer",
-              "remark": "",
-              "chnname": "产品类别id",
-              "pk": true,
-              "notNull": true,
-              "autoIncrement": true
-            },
-            {
-              "name": "name",
-              "type": "ShortString",
-              "remark": "",
-              "chnname": "产品类别名称"
-            },
-            {
-              "name": "memo",
-              "type": "MiddleString",
-              "remark": "",
-              "chnname": "备注"
-            },
-            {
-              "name": "created_time",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "创建时间"
-            },
-            {
-              "name": "updated_time",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "更新时间"
-            },
-            {
-              "name": "deleted",
-              "type": "tinyint",
-              "remark": "",
-              "chnname": "是否删除(1:是；0:否)",
-              "defaultValue": "0"
-            }
-          ],
-          "indexs": [],
-          "headers": [
-            {
-              "fieldName": "chnname",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "name",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "type",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "dataType",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "remark",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "pk",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "notNull",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "autoIncrement",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "defaultValue",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "relationNoShow",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "uiHint",
-              "relationNoShow": true
-            }
-          ],
-          "chnname": "产品类别"
-        }
-      ],
-      "graphCanvas": {
-        "edges": [],
-        "nodes": []
-      },
-      "associations": []
-    },
-    {
       "name": "TSA-common",
       "chnname": "公共模块",
       "entities": [
@@ -793,6 +578,295 @@
       "graphCanvas": {
         "edges": [],
         "nodes": []
+      },
+      "associations": []
+    },
+    {
+      "name": "TSA-web",
+      "chnname": "web端",
+      "entities": [
+        {
+          "title": "tsa_customer",
+          "fields": [
+            {
+              "name": "customer_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "客户id",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "customer_name",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "客户名称"
+            },
+            {
+              "name": "customer_account",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "客户账号"
+            },
+            {
+              "name": "customer_password",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "客户密码"
+            },
+            {
+              "name": "recharge_money",
+              "type": "Money",
+              "remark": "",
+              "chnname": "充值资金"
+            },
+            {
+              "name": "last_money",
+              "type": "Money",
+              "remark": "",
+              "chnname": "剩余资金"
+            },
+            {
+              "name": "tel",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "电话"
+            },
+            {
+              "name": "addr",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "地址"
+            },
+            {
+              "name": "created_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "updated_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间"
+            },
+            {
+              "name": "deleted",
+              "type": "tinyint",
+              "remark": "",
+              "chnname": "是否删除(1:是；0:否)",
+              "defaultValue": "0",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "客户信息"
+        },
+        {
+          "title": "tsa_business_record",
+          "fields": [
+            {
+              "name": "business_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "交易id",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "person_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "用户id"
+            },
+            {
+              "name": "customer_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "客户id"
+            },
+            {
+              "name": "stock_name",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "股票名称"
+            },
+            {
+              "name": "stock_code",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "股票代码"
+            },
+            {
+              "name": "buy_number",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "买入数量"
+            },
+            {
+              "name": "buy_price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "成本价"
+            },
+            {
+              "name": "buy_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "买入时间"
+            },
+            {
+              "name": "status",
+              "type": "tinyint",
+              "remark": "",
+              "chnname": "交易状态"
+            },
+            {
+              "name": "sell_price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "卖出价"
+            },
+            {
+              "name": "sell_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "卖出时间"
+            },
+            {
+              "name": "income_rate",
+              "type": "Double",
+              "remark": "",
+              "chnname": "收益率"
+            },
+            {
+              "name": "remark",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "备注"
+            },
+            {
+              "name": "created_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "updated_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间"
+            },
+            {
+              "name": "deleted",
+              "type": "tinyint",
+              "remark": "",
+              "chnname": "是否删除(1:是；0:否)",
+              "defaultValue": "0",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "交易记录"
+        }
+      ],
+      "graphCanvas": {
+        "nodes": [],
+        "edges": []
       },
       "associations": []
     }

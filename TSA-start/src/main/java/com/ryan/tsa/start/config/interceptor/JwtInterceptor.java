@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author guan.kai
+ * 登录拦截器
+ *
+ * @author ryan
  * @date 2020/8/6
  */
 

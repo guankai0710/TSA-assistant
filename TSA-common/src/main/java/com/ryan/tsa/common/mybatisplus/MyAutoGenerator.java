@@ -24,7 +24,7 @@ public class MyAutoGenerator {
 
         /**  需要修改部分 */
         // 填写代码生成的目录
-        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-miniapp\\TSA-miniapp-product";
+        String projectPath = "E:\\idea_workspace\\my\\TSA-assistant\\TSA-web\\TSA-web-business";
         //开发者信息
         String author = "ryan";
         //数据源配置
@@ -35,12 +35,12 @@ public class MyAutoGenerator {
 
         //包信息
         String parentPackageName = "com.ryan.tsa";
-        String moduleName = "miniapp.product";
+        String moduleName = "web.business";
 
         //表名
-        String[] tableName = {"tsa_app_product","tsa_app_product_category"};
+        String[] tableName = {"tsa_business_record"};
         //表前缀
-        String tablePrefix = "tsa_app_";
+        String tablePrefix = "tsa_";
 
 
 

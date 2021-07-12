@@ -37,7 +37,7 @@ public interface PersonMapper extends BaseMapper<Person> {
      *
      * @param personId 用户id
      * @param onlined 是否在线
-     * @author guankai
+     * @author ryan
      * @date 2021/4/29
      * @return
      **/
