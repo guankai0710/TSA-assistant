@@ -30,7 +30,7 @@ public interface SysParameterMapper extends BaseMapper<SysParameter> {
      * @date 2021/7/13
      * @return
      **/
-    List<SysParameterVo> pageList(SysParameterQo qo);
+    List<SysParameterVo> queryList(SysParameterQo qo);
 
     /**
      * 批量删除

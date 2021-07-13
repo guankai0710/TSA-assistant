@@ -36,5 +36,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param ids
      * @return
      */
-    void bacthDelete(@Param("ids") String ids);
+    void delete(@Param("ids") String ids);
 }

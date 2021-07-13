@@ -1,5 +1,6 @@
 package com.ryan.tsa.auth.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.ryan.tsa.auth.domain.Role;
@@ -7,8 +8,10 @@ import com.ryan.tsa.auth.mapper.RoleMapper;
 import com.ryan.tsa.auth.qo.RoleQo;
 import com.ryan.tsa.auth.service.RoleService;
 import com.ryan.tsa.auth.vo.RoleVo;
+import com.ryan.tsa.common.exception.ParamNotExistException;
 import com.ryan.tsa.common.response.PageResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,36 +35,53 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public PageResponse<RoleVo> pageList(RoleQo qo) {
-        PageHelper.startPage(qo.getPageNum(),qo.getPageSize());
+        PageHelper.startPage(qo.getPageNum(),qo.getPageSize(),"updated_time desc");
         List<RoleVo> roleVos = roleMapper.queryList(qo);
         return PageResponse.of(roleVos);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean save(String roleName, String memo) {
-        Role role = new Role();
-        role.setName(roleName);
-        role.setMemo(memo);
-        roleMapper.insert(role);
-        return true;
+    public Boolean save(String json) {
+        Role role = JSON.parseObject(json, Role.class);
+        if (StringUtils.isBlank(role.getName())){
+            throw new ParamNotExistException("参数缺失");
+        }
+        try {
+            role.setDeleted(0);
+            roleMapper.insert(role);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean update(Integer roleId, String roleName, String memo) {
-        Role role = new Role();
-        role.setRoleId(roleId);
-        role.setName(roleName);
-        role.setMemo(memo);
-        roleMapper.updateById(role);
-        return true;
+    public Boolean update(String json) {
+        Role role = JSON.parseObject(json, Role.class);
+        if (role.getRoleId() == null){
+            throw new ParamNotExistException("参数缺失");
+        }
+        try {
+            roleMapper.updateById(role);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean bacthDelete(String ids) {
-        roleMapper.bacthDelete(ids);
-        return true;
+    public Boolean delete(String ids) {
+        try {
+            roleMapper.delete(ids);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
     }
 }

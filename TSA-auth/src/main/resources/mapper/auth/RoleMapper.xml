@@ -19,7 +19,7 @@
         </where>
     </select>
 
-    <update id="bacthDelete" parameterType="java.lang.String">
+    <update id="delete" parameterType="java.lang.String">
         UPDATE
             tsa_auth_role
         SET

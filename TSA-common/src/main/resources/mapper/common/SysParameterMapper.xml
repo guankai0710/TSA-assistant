@@ -23,7 +23,7 @@
             param_code = #{paramCode} AND deleted = 0
     </select>
 
-    <select id="pageList" resultType="com.ryan.tsa.common.vo.SysParameterVo">
+    <select id="queryList" resultType="com.ryan.tsa.common.vo.SysParameterVo">
         SELECT
             sya_param_id AS syaParamId,
             param_code AS paramCode,

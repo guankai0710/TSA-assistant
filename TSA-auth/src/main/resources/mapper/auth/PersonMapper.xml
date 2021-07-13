@@ -47,7 +47,7 @@
             person_id = #{personId}
     </update>
 
-    <update id="bacthDelete">
+    <update id="delete">
         UPDATE
             tsa_auth_person
         SET

@@ -20,7 +20,7 @@ public interface PersonService extends IService<Person> {
      * 分页查询
      *
      * @param qo 查询条件
-     * @author guankai
+     * @author ryan
      * @date 2021/4/30
      * @return
      **/
@@ -49,12 +49,12 @@ public interface PersonService extends IService<Person> {
     /**
      * 新增
      *
-     * @param vo 用户信息
-     * @author guankai
+     * @param json 用户信息
+     * @author ryan
      * @date 2021/4/30
      * @return
      **/
-    boolean save(PersonVo vo);
+    Boolean save(String json);
 
     /**
      * 修改在线状态
@@ -65,7 +65,7 @@ public interface PersonService extends IService<Person> {
      * @date 2021/4/29
      * @return
      **/
-    boolean updateOnlined(Integer personId, Integer onlined);
+    Boolean updateOnlined(Integer personId, Integer onlined);
 
     /**
      * 修改密码
@@ -73,28 +73,30 @@ public interface PersonService extends IService<Person> {
      * @param personId 用户id
      * @param oldPassword 旧密码
      * @param newPassword 新密码
-     * @author guankai
+     * @author ryan
      * @date 2021/4/29
      * @return
      **/
-    boolean updatePwd(Integer personId, String oldPassword, String newPassword);
+    Boolean updatePwd(Integer personId, String oldPassword, String newPassword);
 
     /**
      * 重置密码
      *
      * @param personId 用户id
-     * @author guankai
+     * @author ryan
      * @date 2021/4/30
      * @return
      **/
-    boolean resetPwd(Integer personId);
+    Boolean resetPwd(Integer personId);
 
     /**
      * 批量删除
      *
      * @param ids
+     * @author ryan
+     * @date 2021/4/30
      * @return
      */
-    boolean bacthDelete(String ids);
+    Boolean delete(String ids);
 
 }

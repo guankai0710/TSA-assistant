@@ -1,6 +1,7 @@
 package com.ryan.tsa.auth.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.ryan.tsa.auth.domain.Person;
 import com.ryan.tsa.auth.qo.PersonQo;
 import com.ryan.tsa.auth.service.PersonService;
@@ -43,32 +44,30 @@ public class PersonController extends BaseController {
     /**
      * 新增
      *
-     * @param vo 用户信息
+     * @param json 用户信息
      * @author guankai
      * @date 2021/4/29
      * @return
      **/
     @PostMapping("/save")
-    public Result save(PersonVo vo){
-        Person person = personService.getByAccount(vo.getAccount());
-        if (person != null){
-            return Result.failure(ResultCode.USER_HAS_EXISTED);
-        }
-        return Result.success(restResult(personService.save(vo)));
+    public Result save(String json){
+        return Result.success(restResult(personService.save(json)));
     }
 
     /**
      * 修改
      *
-     * @param vo 用户信息
+     * @param json 用户信息
      * @author guankai
      * @date 2021/4/29
      * @return
      **/
     @PostMapping("/update")
-    public Result update(PersonVo vo){
-        Person person = new Person();
-        BeanUtils.copyProperties(vo,person);
+    public Result update(String json){
+        Person person = JSON.parseObject(json,Person.class);
+        if (person.getPersonId() == null){
+            return Result.failure(ResultCode.PARAM_NOT_EXIST);
+        }
         return Result.success(restResult(personService.updateById(person)));
     }
 
@@ -95,7 +94,7 @@ public class PersonController extends BaseController {
      */
     @PostMapping("/delete")
     public Result delete(@RequestParam("ids") String ids){
-        return Result.success(restResult(personService.bacthDelete(ids)));
+        return Result.success(restResult(personService.delete(ids)));
     }
 
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.ryan.tsa.common.mapper.SysDictionaryMapper">
 
 
-    <select id="pageList" resultType="com.ryan.tsa.common.vo.SysDictionaryVo" parameterType="com.ryan.tsa.common.qo.SysDictionaryQo">
+    <select id="queryList" resultType="com.ryan.tsa.common.vo.SysDictionaryVo" parameterType="com.ryan.tsa.common.qo.SysDictionaryQo">
         SELECT
             sys_dic_id AS sysDicId,
             type_code AS typeCode,

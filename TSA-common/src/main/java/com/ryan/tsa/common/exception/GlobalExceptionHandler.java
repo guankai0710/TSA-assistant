@@ -60,6 +60,18 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 用户已存在异常
+     *
+     * @param exception 异常
+     * @return
+     */
+    @ExceptionHandler(value = {UserHasExistException.class})
+    public Result userHasExistExceptionHandler(Exception exception) {
+        log.error("用户已存在：", exception);
+        return Result.failure(ResultCode.USER_HAS_EXISTED);
+    }
+
+    /**
      * 请求参数类型异常
      *
      * @param exception 异常

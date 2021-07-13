@@ -30,7 +30,7 @@ public interface SysDictionaryMapper extends BaseMapper<SysDictionary> {
      * @date 2021/7/13
      * @return
      **/
-    List<SysDictionaryVo> pageList(SysDictionaryQo qo);
+    List<SysDictionaryVo> queryList(SysDictionaryQo qo);
 
     /**
      * 批量删除

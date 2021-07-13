@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,10 +36,11 @@ public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, Sys
     @Override
     public PageResponse<SysParameterVo> pageList(SysParameterQo qo) {
         PageHelper.startPage(qo.getPageNum(),qo.getPageSize(),"updated_time desc");
-        List<SysParameterVo> sysParameterVos = sysParameterMapper.pageList(qo);
+        List<SysParameterVo> sysParameterVos = sysParameterMapper.queryList(qo);
         return PageResponse.of(sysParameterVos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean save(String json) {
         SysParameter sysParameter = JSON.parseObject(json, SysParameter.class);
@@ -57,6 +59,7 @@ public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, Sys
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean update(String json) {
         SysParameter sysParameter = JSON.parseObject(json, SysParameter.class);
@@ -73,6 +76,7 @@ public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, Sys
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean delete(String ids) {
         try {

@@ -49,6 +49,6 @@ public interface PersonMapper extends BaseMapper<Person> {
      * @param ids
      * @return
      */
-    void bacthDelete(@Param("ids") String ids);
+    void delete(@Param("ids") String ids);
 
 }

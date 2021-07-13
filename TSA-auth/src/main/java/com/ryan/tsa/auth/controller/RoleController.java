@@ -39,41 +39,39 @@ public class RoleController extends BaseController {
     /**
      * 新增
      *
-     * @param roleName 角色名称
-     * @param memo 备注
+     * @param json 角色信息json字符串
      * @author ryan
      * @date 2021/4/29
      * @return
      **/
     @PostMapping("/save")
-    public Result save(@RequestParam("roleName") String roleName, @RequestParam(value = "memo", required = false) String memo){
-        return Result.success(restResult(roleService.save(roleName, memo)));
+    public Result save(@RequestParam("json") String json){
+        return Result.success(restResult(roleService.save(json)));
     }
 
     /**
      * 修改
      *
-     * @param roleId 角色id
-     * @param roleName 角色名称
-     * @param memo 备注
+     * @param json 角色信息json字符串
      * @author ryan
      * @date 2021/4/29
      * @return
      **/
     @PutMapping("/update")
-    public Result update(@RequestParam("roleId") Integer roleId, @RequestParam("roleName") String roleName, @RequestParam(value = "memo", required = false) String memo){
-        return Result.success(restResult(roleService.update(roleId, roleName, memo)));
+    public Result update(@RequestParam("json") String json){
+        return Result.success(restResult(roleService.update(json)));
     }
 
     /**
      * 批量删除
      *
      * @param ids
-     * @return
+     * @author ryan
+     * @date 2021/4/29
      */
     @DeleteMapping("/delete")
     public Result delete(@RequestParam("ids") String ids){
-        return Result.success(restResult(roleService.bacthDelete(ids)));
+        return Result.success(restResult(roleService.delete(ids)));
     }
 
 }
