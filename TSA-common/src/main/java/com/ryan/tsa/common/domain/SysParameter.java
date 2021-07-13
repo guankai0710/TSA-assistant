@@ -53,22 +53,10 @@ public class SysParameter implements Serializable {
     private String memo;
 
     /**
-     * 创建人
-     */
-    @TableField("created_by")
-    private String createdBy;
-
-    /**
      * 创建时间
      */
     @TableField(value = "created_time",fill = FieldFill.INSERT)
     private String createdTime;
-
-    /**
-     * 更新人
-     */
-    @TableField("updated_by")
-    private String updatedBy;
 
     /**
      * 更新时间

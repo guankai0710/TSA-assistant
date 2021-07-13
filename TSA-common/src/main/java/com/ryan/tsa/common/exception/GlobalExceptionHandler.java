@@ -48,6 +48,18 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 请求参数缺失异常
+     *
+     * @param exception 异常
+     * @return
+     */
+    @ExceptionHandler(value = {ParamNotExistException.class})
+    public Result paramNotExistExceptionHandler(Exception exception) {
+        log.error("请求参数缺失：", exception);
+        return Result.failure(ResultCode.PARAM_NOT_EXIST);
+    }
+
+    /**
      * 请求参数类型异常
      *
      * @param exception 异常

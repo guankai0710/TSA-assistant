@@ -1,11 +1,14 @@
 package com.ryan.tsa.common.mapper;
 
-import com.ryan.tsa.common.domain.SysParameter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryan.tsa.common.domain.SysParameter;
+import com.ryan.tsa.common.qo.SysParameterQo;
 import com.ryan.tsa.common.vo.SysParameterVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,6 +21,26 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface SysParameterMapper extends BaseMapper<SysParameter> {
+
+    /**
+     * 分页查询列表
+     *
+     * @param qo 查询条件
+     * @author ryan
+     * @date 2021/7/13
+     * @return
+     **/
+    List<SysParameterVo> pageList(SysParameterQo qo);
+
+    /**
+     * 批量删除
+     *
+     * @param ids 主键ids
+     * @author ryan
+     * @date 2021/7/13
+     * @return
+     **/
+    void delete(@Param("ids") String ids);
 
     /**
      * 根据参数编码查询

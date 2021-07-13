@@ -20,7 +20,6 @@
     <!--  模块  -->
     <modules>
         <module>TSA-common</module>
-        <module>TSA-miniapp</module>
         <module>TSA-web</module>
         <module>TSA-start</module>
         <module>TSA-auth</module>

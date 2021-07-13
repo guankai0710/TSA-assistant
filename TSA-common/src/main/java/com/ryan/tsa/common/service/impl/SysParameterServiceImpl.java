@@ -1,13 +1,21 @@
 package com.ryan.tsa.common.service.impl;
 
-import com.ryan.tsa.common.domain.SysParameter;
-import com.ryan.tsa.common.mapper.SysParameterMapper;
-import com.ryan.tsa.common.service.SysParameterService;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.ryan.tsa.common.domain.SysParameter;
+import com.ryan.tsa.common.exception.ParamNotExistException;
+import com.ryan.tsa.common.mapper.SysParameterMapper;
+import com.ryan.tsa.common.qo.SysParameterQo;
+import com.ryan.tsa.common.response.PageResponse;
+import com.ryan.tsa.common.service.SysParameterService;
 import com.ryan.tsa.common.vo.SysParameterVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,6 +31,58 @@ public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, Sys
 
     @Autowired
     private SysParameterMapper sysParameterMapper;
+
+    @Override
+    public PageResponse<SysParameterVo> pageList(SysParameterQo qo) {
+        PageHelper.startPage(qo.getPageNum(),qo.getPageSize(),"updated_time desc");
+        List<SysParameterVo> sysParameterVos = sysParameterMapper.pageList(qo);
+        return PageResponse.of(sysParameterVos);
+    }
+
+    @Override
+    public Boolean save(String json) {
+        SysParameter sysParameter = JSON.parseObject(json, SysParameter.class);
+        //参数校验
+        if (StringUtils.isBlank(sysParameter.getParamCode()) || StringUtils.isBlank(sysParameter.getParamName())
+                || StringUtils.isBlank(sysParameter.getParamValue())){
+            throw new ParamNotExistException("参数缺失");
+        }
+        try {
+            sysParameter.setDeleted(0);
+            sysParameterMapper.insert(sysParameter);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean update(String json) {
+        SysParameter sysParameter = JSON.parseObject(json, SysParameter.class);
+        //参数校验
+        if (sysParameter.getSyaParamId() == null){
+            throw new ParamNotExistException("参数缺失");
+        }
+        try {
+            sysParameterMapper.updateById(sysParameter);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean delete(String ids) {
+        try {
+            sysParameterMapper.delete(ids);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return false;
+        }
+    }
 
     @Override
     public SysParameterVo getByParamCode(String paramCode) {

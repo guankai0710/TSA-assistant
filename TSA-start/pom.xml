@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.ryan.tsa</groupId>
-            <artifactId>TSA-miniapp-product</artifactId>
+            <artifactId>TSA-web</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

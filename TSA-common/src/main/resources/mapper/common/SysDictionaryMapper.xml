@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ryan.tsa.common.mapper.SysDictionaryMapper">
 
+
+    <select id="pageList" resultType="com.ryan.tsa.common.vo.SysDictionaryVo" parameterType="com.ryan.tsa.common.qo.SysDictionaryQo">
+        SELECT
+            sys_dic_id AS sysDicId,
+            type_code AS typeCode,
+            type_name AS typeName,
+            dic_value AS dicValue,
+            dic_name AS dicName,
+            dic_memo AS dicMemo
+        FROM
+            tsa_sys_dictionary
+        WHERE
+            deleted = 0 and (type_code like '%${qo.typeCodeOrDicName}%' or type_name like '%${qo.typeCodeOrDicName}%')
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        UODATE
+            tsa_sys_dictionary
+        SET
+            deleted = 1,
+            updated_time = NOW()
+        WHERE
+            sys_dic_id in(#{ids})
+    </delete>
+
     <select id="getByTypeCode" resultType="com.ryan.tsa.common.vo.SysDictionaryVo">
         SELECT
             type_code AS typeCode,
@@ -13,5 +38,6 @@
         WHERE
             type_code = #{typeCode} AND deleted = 0
     </select>
+
 
 </mapper>

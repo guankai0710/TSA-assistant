@@ -60,7 +60,7 @@ public class RoleController extends BaseController {
      * @date 2021/4/29
      * @return
      **/
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestParam("roleId") Integer roleId, @RequestParam("roleName") String roleName, @RequestParam(value = "memo", required = false) String memo){
         return Result.success(restResult(roleService.update(roleId, roleName, memo)));
     }
@@ -71,7 +71,7 @@ public class RoleController extends BaseController {
      * @param ids
      * @return
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestParam("ids") String ids){
         return Result.success(restResult(roleService.bacthDelete(ids)));
     }

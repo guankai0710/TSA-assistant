@@ -43,9 +43,7 @@ CREATE TABLE `tsa_sys_parameter` (
   `param_name` varchar(32) DEFAULT NULL COMMENT '系统参数名称',
   `param_value` varchar(32) DEFAULT NULL COMMENT '系统参数值',
   `memo` varchar(128) DEFAULT NULL COMMENT '系统参数备注',
-  `created_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `updated_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` NOT NULL tinyint DEFAULT '0' COMMENT '是否删除(1:是；0:否)',
   PRIMARY KEY (`sya_param_id`)
@@ -59,9 +57,7 @@ CREATE TABLE `tsa_sys_dictionary` (
   `dic_value` varchar(32) DEFAULT NULL COMMENT '字典值',
   `dic_name` varchar(32) DEFAULT NULL COMMENT '字典名称',
   `dic_memo` varchar(128) DEFAULT NULL COMMENT '字典备注',
-  `created_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `updated_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` NOT NULL tinyint DEFAULT '0' COMMENT '是否删除(1:是；0:否)',
   PRIMARY KEY (`sys_dic_id`)

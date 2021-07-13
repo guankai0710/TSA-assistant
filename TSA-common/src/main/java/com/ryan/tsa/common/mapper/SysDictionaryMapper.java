@@ -2,6 +2,7 @@ package com.ryan.tsa.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ryan.tsa.common.domain.SysDictionary;
+import com.ryan.tsa.common.qo.SysDictionaryQo;
 import com.ryan.tsa.common.vo.SysDictionaryVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,6 +21,26 @@ import java.util.List;
 @Repository
 @Mapper
 public interface SysDictionaryMapper extends BaseMapper<SysDictionary> {
+
+    /**
+     * 分页查询列表
+     *
+     * @param qo 查询条件
+     * @author ryan
+     * @date 2021/7/13
+     * @return
+     **/
+    List<SysDictionaryVo> pageList(SysDictionaryQo qo);
+
+    /**
+     * 批量删除
+     *
+     * @param ids 主键ids
+     * @author ryan
+     * @date 2021/7/13
+     * @return
+     **/
+    void delete(@Param("ids") String ids);
 
     /**
      * 根据字典类型编码获取字典值
