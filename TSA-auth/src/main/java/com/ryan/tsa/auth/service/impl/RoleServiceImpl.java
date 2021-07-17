@@ -8,8 +8,9 @@ import com.ryan.tsa.auth.mapper.RoleMapper;
 import com.ryan.tsa.auth.qo.RoleQo;
 import com.ryan.tsa.auth.service.RoleService;
 import com.ryan.tsa.auth.vo.RoleVo;
-import com.ryan.tsa.common.exception.ParamNotExistException;
+import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.response.PageResponse;
+import com.ryan.tsa.common.response.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public Boolean save(String json) {
         Role role = JSON.parseObject(json, Role.class);
         if (StringUtils.isBlank(role.getName())){
-            throw new ParamNotExistException("参数缺失");
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
         }
         try {
             role.setDeleted(0);
@@ -62,7 +63,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public Boolean update(String json) {
         Role role = JSON.parseObject(json, Role.class);
         if (role.getRoleId() == null){
-            throw new ParamNotExistException("参数缺失");
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
         }
         try {
             roleMapper.updateById(role);

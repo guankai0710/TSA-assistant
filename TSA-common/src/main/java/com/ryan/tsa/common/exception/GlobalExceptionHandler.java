@@ -48,30 +48,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 请求参数缺失异常
-     *
-     * @param exception 异常
-     * @return
-     */
-    @ExceptionHandler(value = {ParamNotExistException.class})
-    public Result paramNotExistExceptionHandler(Exception exception) {
-        log.error("请求参数缺失：", exception);
-        return Result.failure(ResultCode.PARAM_NOT_EXIST);
-    }
-
-    /**
-     * 用户已存在异常
-     *
-     * @param exception 异常
-     * @return
-     */
-    @ExceptionHandler(value = {UserHasExistException.class})
-    public Result userHasExistExceptionHandler(Exception exception) {
-        log.error("用户已存在：", exception);
-        return Result.failure(ResultCode.USER_HAS_EXISTED);
-    }
-
-    /**
      * 请求参数类型异常
      *
      * @param exception 异常
@@ -108,15 +84,15 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 自定义接口超时异常
+     * 自定义业务异常
      *
      * @param exception 异常
      * @return
      */
-    @ExceptionHandler(value = {ConnectionTimeOutException.class})
-    public Result connectionTimeOutExceptionHandler(Exception exception) {
-        log.error("GlobalExceptionHandler ConnectionTimeOutException异常：", exception);
-        return Result.failure(ResultCode.INTERFACE_CONNECTION_TIME_OUT);
+    @ExceptionHandler(value = {BusinessException.class})
+    public Result businessExceptionHandler(BusinessException exception) {
+        log.error("GlobalExceptionHandler BusinessException异常：", exception);
+        return Result.failure(exception.getResultCode());
     }
 
     /**

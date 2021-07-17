@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.ryan.tsa.common.domain.SysDictionary;
-import com.ryan.tsa.common.exception.ParamNotExistException;
+import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.mapper.SysDictionaryMapper;
 import com.ryan.tsa.common.qo.SysDictionaryQo;
 import com.ryan.tsa.common.response.PageResponse;
+import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.service.SysDictionaryService;
 import com.ryan.tsa.common.vo.SysDictionaryVo;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,7 @@ public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, S
         //参数校验
         if (StringUtils.isBlank(sysDictionary.getTypeCode()) || StringUtils.isBlank(sysDictionary.getTypeName())
             || StringUtils.isBlank(sysDictionary.getDicValue()) || StringUtils.isBlank(sysDictionary.getDicName())){
-            throw new ParamNotExistException("参数缺失");
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
         }
         try {
             sysDictionary.setDeleted(0);
@@ -67,7 +68,7 @@ public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, S
         SysDictionary sysDictionary = JSON.parseObject(json, SysDictionary.class);
         //参数校验
         if (sysDictionary.getSysDicId() == null){
-            throw new ParamNotExistException("参数缺失");
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
         }
         try {
             sysDictionaryMapper.updateById(sysDictionary);

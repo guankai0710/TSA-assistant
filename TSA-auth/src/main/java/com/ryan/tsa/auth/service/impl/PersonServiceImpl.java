@@ -10,9 +10,9 @@ import com.ryan.tsa.auth.qo.PersonQo;
 import com.ryan.tsa.auth.service.PersonService;
 import com.ryan.tsa.auth.vo.PersonVo;
 import com.ryan.tsa.common.enumerate.YesOrNo;
-import com.ryan.tsa.common.exception.ParamNotExistException;
-import com.ryan.tsa.common.exception.UserHasExistException;
+import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.response.PageResponse;
+import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.utils.EncoderOfMd5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -59,11 +59,11 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     public Boolean save(String json) {
         Person person = JSON.parseObject(json, Person.class);
         if (StringUtils.isBlank(person.getAccount()) || person.getRoleId() == null){
-            throw new ParamNotExistException("参数缺失");
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
         }
         Person byAccount = getByAccount(person.getAccount());
         if (byAccount != null){
-            throw new UserHasExistException("用户已存在");
+            throw new BusinessException(ResultCode.USER_HAS_EXISTED);
         }
         try {
             String salt = RandomStringUtils.randomAlphabetic(32);
