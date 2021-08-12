@@ -1,0 +1,1867 @@
+{
+  "name": "TSA",
+  "describe": "TSA交易分析系统",
+  "avatar": "",
+  "version": "3.0.0",
+  "createdTime": "2021-7-21 23:00:34",
+  "updatedTime": "2021-8-12 20:44:12",
+  "dbConns": [],
+  "profile": {
+    "default": {
+      "db": "MYSQL",
+      "dbConn": "FD5B2BC6-5965-4639-876D-2BAF91D65C71",
+      "entityInitFields": [
+        {
+          "defKey": "revision",
+          "defName": "乐观锁",
+          "comment": "",
+          "domain": "Int",
+          "type": "INT",
+          "len": 0,
+          "scale": 0,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_by",
+          "defName": "创建人",
+          "comment": "",
+          "domain": "IdOrKey",
+          "type": "VARCHAR",
+          "len": 2,
+          "scale": 0,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": 0,
+          "scale": 0,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "updated_by",
+          "defName": "更新人",
+          "comment": "",
+          "domain": "IdOrKey",
+          "type": "VARCHAR",
+          "len": 2,
+          "scale": 0,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": 0,
+          "scale": 0,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        }
+      ]
+    },
+    "javaHome": "",
+    "sql": {
+      "delimiter": ""
+    },
+    "dataTypeSupports": [
+      "MYSQL",
+      "ORACLE",
+      "SQLServer",
+      "PostgreSQL",
+      "JAVA"
+    ],
+    "codeTemplates": [
+      {
+        "type": "dbDDL",
+        "applyFor": "MYSQL",
+        "createTable": "CREATE TABLE {{=it.entity.defKey}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    {{=field.defKey}} {{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}} {{= field.notNull ? 'NOT NULL' : '' }} {{= field.autoIncrement ? 'AUTO_INCREMENT' : '' }} {{= field.defaultValue ? it.func.join(' DEFAULT ',field.defaultValue,' ') : '' }} COMMENT '{{=it.func.join(field.defName,field.comment,';')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n)  COMMENT = '{{=it.func.join(it.entity.defName,it.entity.comment,';') }}'{{=it.separator}}\n$blankline",
+        "createIndex": "{{~ it.entity.indexes:index}}\nCREATE {{? index.unique}}UNIQUE {{?}}INDEX {{=index.defKey}} ON TABLE {{=it.entity.defKey}}({{ fieldsKeys = index.fields.map(function(field){return field.fieldDefKey}) ; }}{{=it.func.join(...fieldsKeys,',')}});\n{{~}}"
+      },
+      {
+        "applyFor": "ORACLE",
+        "referURL": "",
+        "type": "dbDDL",
+        "createTable": "CREATE TABLE {{=it.entity.defKey}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    {{=field.defKey}} {{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= field.autoIncrement ? ' AUTO_INCREMENT' : '' }}{{= field.defaultValue ? it.func.join(' DEFAULT ',field.defaultValue,' ') : '' }}{{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n){{=it.separator}}\n$blankline\n{{? it.entity.defKey || it.entity.defName}}COMMENT ON TABLE {{=it.entity.defName}} IS '{{=it.func.join(it.entity.defName,it.entity.comment,';')}}';{{?}}\n{{~it.entity.fields:field:index}}\n{{? field.defName || field.comment}}COMMENT ON COLUMN {{=it.entity.defKey}}.{{=field.defKey}} IS '{{=it.func.join(field.defName,field.comment,';')}}';{{?}}\n{{~}}",
+        "createIndex": "{{~ it.entity.indexes:index}}\nCREATE {{? index.unique}}UNIQUE {{?}}INDEX {{=index.defKey}} ON TABLE {{=it.entity.defKey}}({{ fieldsKeys = index.fields.map(function(field){return field.fieldDefKey}) ; }}{{=it.func.join(...fieldsKeys,',')}});\n{{~}}"
+      },
+      {
+        "applyFor": "SQLServer",
+        "referURL": "",
+        "type": "dbDDL",
+        "createTable": "CREATE TABLE {{=it.entity.defKey}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    {{=field.defKey}} {{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= field.autoIncrement ? ' AUTO_INCREMENT' : '' }}{{= field.defaultValue ? it.func.join(' DEFAULT ',field.defaultValue,' ') : '' }}{{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n){{=it.separator}}\n$blankline\n{{? it.entity.defKey || it.entity.defName}}EXEC sp_addextendedproperty 'MS_Description', '{{=it.func.join(it.entity.defName,it.entity.comment,';')}}', 'SCHEMA', dbo, 'table', {{=it.entity.defKey}}, null, null;{{?}}\n{{~it.entity.fields:field:index}}\nEXEC sp_addextendedproperty 'MS_Description', '{{=it.func.join(field.defName,field.comment,';')}}', 'SCHEMA', dbo, 'table', {{=it.entity.defKey}}, 'column', {{=field.defKey}};\n{{~}}",
+        "createIndex": "{{~ it.entity.indexes:index}}\nCREATE {{? index.unique}}UNIQUE {{?}}INDEX {{=index.defKey}} ON TABLE {{=it.entity.defKey}}({{ fieldsKeys = index.fields.map(function(field){return field.fieldDefKey}) ; }}{{=it.func.join(...fieldsKeys,',')}});\n{{~}}"
+      },
+      {
+        "applyFor": "PostgreSQL",
+        "referURL": "",
+        "type": "dbDDL",
+        "createTable": "CREATE TABLE {{=it.entity.defKey}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    {{=field.defKey}} {{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= field.autoIncrement ? ' AUTO_INCREMENT' : '' }}{{= field.defaultValue ? it.func.join(' DEFAULT ',field.defaultValue,' ') : '' }}{{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n){{=it.separator}}\n$blankline\n{{? it.entity.defKey || it.entity.defName}}COMMENT ON TABLE {{=it.entity.defName}} IS '{{=it.func.join(it.entity.defName,it.entity.comment,';')}}';{{?}}\n{{~it.entity.fields:field:index}}\n{{? field.defName || field.comment}}COMMENT ON COLUMN {{=it.entity.defKey}}.{{=field.defKey}} IS '{{=it.func.join(field.defName,field.comment,';')}}';{{?}}\n{{~}}",
+        "createIndex": "{{~ it.entity.indexes:index}}\nCREATE {{? index.unique}}UNIQUE {{?}}INDEX {{=index.defKey}} ON TABLE {{=it.entity.defKey}}({{ fieldsKeys = index.fields.map(function(field){return field.fieldDefKey}) ; }}{{=it.func.join(...fieldsKeys,',')}});\n{{~}}"
+      },
+      {
+        "type": "appCode",
+        "applyFor": "JAVA",
+        "content": "package pro.chiner.entity;\n$blankline\nimport javax.persistence.*;\nimport java.io.Serializable;\nimport java.util.Date;\n$blankline\n{{\n    var today=new Date();\n    var fullYear=today.getFullYear();\n    var month=today.getMonth() + 1;\n    var days=today.getDate();\n}}\n /**\n * @author : http://www.chiner.pro\n * @date : {{=fullYear}}-{{=month}}-{{=days}}\n * @desc : {{=it.func.join(it.entity.defName,it.entity.comment,'-')}}\n */\n@Table(name=\"{{=it.entity.defKey}}\")\npublic class {{=it.func.camel(it.entity.defKey,true) }} implements Serializable,Cloneable{\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    {{? field.primaryKey }}\n    @Id\n    @GeneratedValue\n    {{?}}\n    private {{=field.type}} {{=it.func.camel(field.defKey,false)}} ;\n{{~}}\n$blankline\n\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    public {{=field.type}} get{{=it.func.camel(field.defKey,true)}}(){\n        return this.{{=it.func.camel(field.defKey,false)}};\n    }\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    public void set{{=it.func.camel(field.defKey,true)}}({{=field.type}} {{= it.func.camel(field.defKey,false) }}){\n        return this.{{=it.func.camel(field.defKey,false)}};\n    }\n{{~}}\n}"
+      }
+    ],
+    "generatorDoc": {
+      "docTemplate": ""
+    },
+    "modelType": "modalGroup",
+    "relationFieldSize": 30
+  },
+  "entities": [
+    {
+      "defKey": "tsa_auth_role",
+      "defName": "角色信息",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false,
+          "code": "chnname",
+          "value": "显示名称",
+          "newCode": "defName",
+          "com": "Input",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false,
+          "code": "name",
+          "value": "字段代码",
+          "newCode": "defKey",
+          "com": "Input",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true,
+          "code": "type",
+          "value": "数据域",
+          "newCode": "domain",
+          "com": "Select",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false,
+          "code": "dataType",
+          "value": "数据类型",
+          "newCode": "type",
+          "com": "Text",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false,
+          "code": "len",
+          "value": "长度",
+          "newCode": "len",
+          "com": "Input",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false,
+          "code": "scale",
+          "value": "小数位数",
+          "newCode": "scale",
+          "com": "Input",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false,
+          "code": "pk",
+          "value": "主键",
+          "newCode": "primaryKey",
+          "com": "Checkbox",
+          "relationNoShow": false,
+          "freeze": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true,
+          "code": "notNull",
+          "value": "不为空",
+          "newCode": "notNull",
+          "com": "Checkbox",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true,
+          "code": "autoIncrement",
+          "value": "自增",
+          "newCode": "autoIncrement",
+          "com": "Checkbox",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true,
+          "code": "defaultValue",
+          "value": "默认值",
+          "newCode": "defaultValue",
+          "com": "Input",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "comment",
+          "hideInGraph": true,
+          "code": "remark",
+          "value": "说明",
+          "newCode": "comment",
+          "com": "Input",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true,
+          "code": "refDict",
+          "value": "数据字典",
+          "newCode": "refDict",
+          "com": "SearchSelect",
+          "relationNoShow": true,
+          "freeze": false
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true,
+          "freeze": false
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false,
+          "freeze": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "role_id",
+          "defName": "角色id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "name",
+          "defName": "角色名称",
+          "comment": "",
+          "domain": "shortname",
+          "type": "VARCHAR",
+          "len": 20,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "memo",
+          "defName": "备注",
+          "comment": "",
+          "domain": "MiddleString",
+          "type": "VARCHAR",
+          "len": 1024,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": []
+    },
+    {
+      "defKey": "tsa_auth_person",
+      "defName": "用户信息",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "remark",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "person_id",
+          "defName": "用户id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "role_id",
+          "defName": "角色id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "name",
+          "defName": "用户名称",
+          "comment": "",
+          "domain": "shortname",
+          "type": "VARCHAR",
+          "len": 20,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "account",
+          "defName": "账号",
+          "comment": "",
+          "domain": "shortname",
+          "type": "VARCHAR",
+          "len": 20,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "password",
+          "defName": "密码",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "encryptsalt",
+          "defName": "加密盐",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "avatar",
+          "defName": "头像",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "sex",
+          "defName": "性别(1:男；2:女)",
+          "comment": "",
+          "domain": "tinyint",
+          "type": "TINYINT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "age",
+          "defName": "年龄",
+          "comment": "",
+          "domain": "Integer",
+          "type": "INT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "pthone",
+          "defName": "电话",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "email",
+          "defName": "邮箱",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "addr",
+          "defName": "地址",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "onlined",
+          "defName": "是否在线(1:是；0:否)",
+          "comment": "",
+          "domain": "tinyint",
+          "type": "TINYINT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "enabled",
+          "defName": "是否启用(1:是；0:否)",
+          "comment": "",
+          "domain": "tinyint",
+          "type": "TINYINT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "0",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": [
+        {
+          "myField": "role_id",
+          "refEntity": "tsa_auth_role",
+          "refField": "role_id",
+          "myRows": "0,n",
+          "refRows": "1",
+          "innerType": ""
+        }
+      ]
+    },
+    {
+      "defKey": "tsa_sys_parameter",
+      "defName": "系统参数",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "remark",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "sya_param_id",
+          "defName": "系统参数id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "param_code",
+          "defName": "系统参数编码",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "param_name",
+          "defName": "系统参数名称",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "param_value",
+          "defName": "系统参数值",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "memo",
+          "defName": "系统参数备注",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": []
+    },
+    {
+      "defKey": "tsa_sys_dictionary",
+      "defName": "系统字典",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "remark",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "sys_dic_id",
+          "defName": "系统字典id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "type_code",
+          "defName": "字典类型编码",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "type_name",
+          "defName": "字典类型名称",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "dic_value",
+          "defName": "字典值",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "dic_name",
+          "defName": "字典名称",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "dic_memo",
+          "defName": "字典备注",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": []
+    },
+    {
+      "defKey": "tsa_customer",
+      "defName": "客户信息",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "remark",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "customer_id",
+          "defName": "客户id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "customer_name",
+          "defName": "客户名称",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "customer_account",
+          "defName": "客户账号",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "customer_password",
+          "defName": "客户密码",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "recharge_money",
+          "defName": "充值资金",
+          "comment": "",
+          "domain": "Money",
+          "type": "NUMBER",
+          "len": 32,
+          "scale": 8,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "last_money",
+          "defName": "剩余资金",
+          "comment": "",
+          "domain": "Money",
+          "type": "NUMBER",
+          "len": 32,
+          "scale": 8,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "tel",
+          "defName": "电话",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "addr",
+          "defName": "地址",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": []
+    },
+    {
+      "defKey": "tsa_business_record",
+      "defName": "交易记录",
+      "comment": "",
+      "properties": {
+        "partitionBy": ""
+      },
+      "nameTemplate": "{defKey}[{defName}]",
+      "headers": [
+        {
+          "refKey": "defName",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "defKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "domain",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "type",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "remark",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "primaryKey",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "notNull",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "autoIncrement",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "defaultValue",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "hideInGraph",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "len",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "scale",
+          "hideInGraph": false
+        },
+        {
+          "refKey": "refDict",
+          "hideInGraph": true
+        },
+        {
+          "refKey": "isStandard",
+          "hideInGraph": false
+        }
+      ],
+      "fields": [
+        {
+          "defKey": "business_id",
+          "defName": "交易id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": true,
+          "notNull": true,
+          "autoIncrement": true,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "person_id",
+          "defName": "用户id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "customer_id",
+          "defName": "客户id",
+          "comment": "",
+          "domain": "intid",
+          "type": "INT",
+          "len": 11,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "stock_name",
+          "defName": "股票名称",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "stock_code",
+          "defName": "股票代码",
+          "comment": "",
+          "domain": "DefaultString",
+          "type": "VARCHAR",
+          "len": "60",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "buy_number",
+          "defName": "买入数量",
+          "comment": "",
+          "domain": "Integer",
+          "type": "INT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "buy_price",
+          "defName": "成本价",
+          "comment": "",
+          "domain": "Money",
+          "type": "NUMBER",
+          "len": 32,
+          "scale": 8,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "buy_time",
+          "defName": "买入时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "status",
+          "defName": "交易状态",
+          "comment": "",
+          "domain": "tinyint",
+          "type": "TINYINT",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "sell_price",
+          "defName": "卖出价",
+          "comment": "",
+          "domain": "Money",
+          "type": "NUMBER",
+          "len": 32,
+          "scale": 8,
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "sell_time",
+          "defName": "卖出时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "income_rate",
+          "defName": "收益率",
+          "comment": "",
+          "domain": "Double",
+          "type": "NUMBER",
+          "len": "32",
+          "scale": "8",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false
+        },
+        {
+          "defKey": "remark",
+          "defName": "备注",
+          "comment": "",
+          "domain": "ShortString",
+          "type": "VARCHAR",
+          "len": 128,
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "created_time",
+          "defName": "创建时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        },
+        {
+          "defKey": "updated_time",
+          "defName": "更新时间",
+          "comment": "",
+          "domain": "DateTime",
+          "type": "DATETIME",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": true
+        }
+      ],
+      "indexes": [],
+      "correlations": []
+    }
+  ],
+  "views": [],
+  "dicts": [],
+  "viewGroups": [
+    {
+      "defKey": "TSA-auth",
+      "defName": "权限控制",
+      "refEntities": [
+        "tsa_auth_role",
+        "tsa_auth_person"
+      ],
+      "refDiagrams": [
+        "TSA-auth-GRAPH-CANVAS"
+      ],
+      "refViews": [],
+      "refDicts": []
+    },
+    {
+      "defKey": "TSA-common",
+      "defName": "公共模块",
+      "refEntities": [
+        "tsa_sys_parameter",
+        "tsa_sys_dictionary"
+      ],
+      "refDiagrams": [
+        "TSA-common-GRAPH-CANVAS"
+      ],
+      "refViews": [],
+      "refDicts": []
+    },
+    {
+      "defKey": "TSA-web",
+      "defName": "web端",
+      "refEntities": [
+        "tsa_customer",
+        "tsa_business_record"
+      ],
+      "refDiagrams": [
+        "TSA-web-GRAPH-CANVAS"
+      ],
+      "refViews": [],
+      "refDicts": []
+    }
+  ],
+  "dataTypeMapping": {
+    "referURL": "",
+    "mappings": [
+      {
+        "defKey": "string",
+        "defName": "字串",
+        "JAVA": "String",
+        "ORACLE": "VARCHAR2",
+        "MYSQL": "VARCHAR"
+      },
+      {
+        "defKey": "double",
+        "defName": "小数",
+        "JAVA": "Double",
+        "ORACLE": "DECIMAL",
+        "MYSQL": "NUMBER"
+      },
+      {
+        "defKey": "int",
+        "defName": "整数",
+        "JAVA": "Double",
+        "ORACLE": "INT",
+        "MYSQL": "INT"
+      },
+      {
+        "defKey": "bytes",
+        "defName": "二进制",
+        "JAVA": "byte[]",
+        "ORACLE": "BLOB",
+        "MYSQL": "BLOB"
+      },
+      {
+        "defKey": "largeText",
+        "defName": "大文本",
+        "JAVA": "String",
+        "ORACLE": "CLOB",
+        "MYSQL": "TEXT"
+      },
+      {
+        "defKey": "date",
+        "defName": "日期",
+        "MYSQL": "DATE",
+        "ORACLE": "DATE",
+        "JAVA": "Date"
+      },
+      {
+        "defKey": "datetime",
+        "defName": "日期时间",
+        "JAVA": "Date",
+        "ORACLE": "DATE",
+        "MYSQL": "DATETIME"
+      },
+      {
+        "defKey": "char",
+        "defName": "单字符",
+        "MYSQL": "CHAR"
+      },
+      {
+        "defKey": "tinyint",
+        "defName": "单整数",
+        "MYSQL": "TINYINT"
+      },
+      {
+        "defKey": "bigint",
+        "defName": "大整数",
+        "MYSQL": "BIGINT"
+      }
+    ]
+  },
+  "domains": [
+    {
+      "defKey": "DefaultString",
+      "defName": "默认字串",
+      "applyFor": "string",
+      "len": "60",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "IdOrKey",
+      "defName": "主键标识",
+      "applyFor": "string",
+      "len": 32,
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "intid",
+      "defName": "自增主键",
+      "applyFor": "int",
+      "len": 11,
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "shortname",
+      "defName": "短名称",
+      "applyFor": "string",
+      "len": 20,
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "Name",
+      "defName": "名称",
+      "applyFor": "string",
+      "len": 90,
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "Int",
+      "defName": "整数",
+      "applyFor": "int",
+      "len": "",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "Double",
+      "defName": "小数",
+      "applyFor": "double",
+      "len": "32",
+      "scale": "8",
+      "uiHint": {}
+    },
+    {
+      "defKey": "Money",
+      "defName": "金额",
+      "applyFor": "double",
+      "len": 32,
+      "scale": 8,
+      "uiHint": {}
+    },
+    {
+      "defKey": "Date",
+      "defName": "日期_Date",
+      "applyFor": "datetime",
+      "len": "",
+      "scale": ""
+    },
+    {
+      "defKey": "DateTime",
+      "defName": "日期时间",
+      "applyFor": "datetime",
+      "len": "",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "YesNo",
+      "defName": "是否",
+      "applyFor": "string",
+      "len": "1",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "Dict",
+      "defName": "数据字典",
+      "applyFor": "string",
+      "len": "32",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "DescText",
+      "defName": "描述文本",
+      "applyFor": "string",
+      "len": "900",
+      "scale": "",
+      "uiHint": {}
+    },
+    {
+      "defKey": "LongText",
+      "defName": "大文本",
+      "applyFor": "largeText",
+      "len": "",
+      "scale": ""
+    },
+    {
+      "defKey": "LongKey",
+      "defName": "标识号-长_LongKey",
+      "applyFor": "string",
+      "len": 64,
+      "scale": ""
+    },
+    {
+      "defKey": "Intro",
+      "defName": "备注说明_Intro",
+      "applyFor": "string",
+      "len": 512,
+      "scale": ""
+    },
+    {
+      "defKey": "ShortString",
+      "defName": "字串-短_ShortString",
+      "applyFor": "string",
+      "len": 128,
+      "scale": ""
+    },
+    {
+      "defKey": "MiddleString",
+      "defName": "字串-中_MiddleString",
+      "applyFor": "string",
+      "len": 1024,
+      "scale": ""
+    },
+    {
+      "defKey": "LongString",
+      "defName": "字串-长_LongString",
+      "applyFor": "string",
+      "len": 2,
+      "scale": ""
+    },
+    {
+      "defKey": "Ratio",
+      "defName": "比例_Ratio",
+      "applyFor": "double",
+      "len": 4,
+      "scale": 2
+    },
+    {
+      "defKey": "Integer",
+      "defName": "整数_Integer",
+      "applyFor": "integer",
+      "len": "",
+      "scale": ""
+    },
+    {
+      "defKey": "BigInt",
+      "defName": "大整数_BigInt",
+      "applyFor": "bigint",
+      "len": "",
+      "scale": ""
+    },
+    {
+      "defKey": "Char",
+      "defName": "单字符_Char",
+      "applyFor": "char",
+      "len": 1,
+      "scale": ""
+    },
+    {
+      "defKey": "tinyint",
+      "defName": "单整数_tinyint",
+      "applyFor": "tinyint",
+      "len": "",
+      "scale": ""
+    }
+  ],
+  "dbConn": [
+    {
+      "defKey": "FD5B2BC6-5965-4639-876D-2BAF91D65C71",
+      "defName": "tsa_db",
+      "type": "",
+      "properties": {
+        "driver_class_name": "com.mysql.cj.jdbc.Driver",
+        "url": "jdbc:mysql://121.41.230.125:3306/tsa_db?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC",
+        "password": "Guan123,.",
+        "username": "root"
+      }
+    }
+  ],
+  "diagrams": [
+    {
+      "defKey": "TSA-auth-GRAPH-CANVAS",
+      "defName": "权限控制-关系图",
+      "canvasData": {
+        "cells": [
+          {
+            "id": "4c861e2c",
+            "shape": "table",
+            "position": {
+              "x": 320,
+              "y": 170
+            },
+            "originKey": "tsa_auth_role",
+            "count": 0
+          },
+          {
+            "id": "2628e32c",
+            "shape": "table",
+            "position": {
+              "x": 700,
+              "y": 280
+            },
+            "originKey": "tsa_auth_person",
+            "count": 0
+          },
+          {
+            "id": "5e135e96",
+            "relation": "0,n:1",
+            "shape": "erdRelation",
+            "source": {
+              "cell": "2628e32c",
+              "port": "role_id%in"
+            },
+            "target": {
+              "cell": "4c861e2c",
+              "port": "role_id%out"
+            },
+            "vertices": []
+          }
+        ]
+      }
+    },
+    {
+      "defKey": "TSA-common-GRAPH-CANVAS",
+      "defName": "公共模块-关系图",
+      "canvasData": {
+        "cells": []
+      }
+    },
+    {
+      "defKey": "TSA-web-GRAPH-CANVAS",
+      "defName": "web端-关系图",
+      "canvasData": {
+        "cells": []
+      }
+    }
+  ]
+}
