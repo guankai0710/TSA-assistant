@@ -1,156 +1,140 @@
 package com.ryan.tsa.auth.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryan.tsa.auth.domain.Person;
 import com.ryan.tsa.auth.mapper.PersonMapper;
 import com.ryan.tsa.auth.qo.PersonQo;
-import com.ryan.tsa.auth.service.PersonService;
-import com.ryan.tsa.auth.vo.PersonVo;
-import com.ryan.tsa.common.enumerate.YesOrNo;
+import com.ryan.tsa.auth.service.IPersonService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ryan.tsa.common.domain.SysDictionary;
 import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.utils.EncoderOfMd5Util;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * <p>
- * 用户  服务实现类
+ * 用户信息 服务实现类
  * </p>
  *
- * @author ryan
- * @since 2021-04-28
+ * @author Ryan
+ * @since 2021-08-13
  */
 @Service
-@Slf4j
-public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements PersonService {
-
-    @Resource
-    private PersonMapper personMapper;
+public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements IPersonService {
 
     @Override
-    public PageResponse<PersonVo> pageList(PersonQo qo) {
-        PageHelper.startPage(qo.getPageNum(),qo.getPageSize());
-        List<PersonVo> personVos = personMapper.queryList(qo);
-        return PageResponse.of(personVos);
-    }
-
-    @Override
-    public PersonVo getById(Integer personId) {
-        Person person = personMapper.selectById(personId);
-        PersonVo personVo = new PersonVo();
-        BeanUtils.copyProperties(person,personVo);
-        return personVo;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public Boolean save(String json) {
-        Person person = JSON.parseObject(json, Person.class);
-        if (StringUtils.isBlank(person.getAccount()) || person.getRoleId() == null){
-            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
-        }
-        Person byAccount = getByAccount(person.getAccount());
-        if (byAccount != null){
-            throw new BusinessException(ResultCode.USER_HAS_EXISTED);
-        }
+    public PageResponse<Person> pageList(PersonQo qo) {
         try {
-            String salt = RandomStringUtils.randomAlphabetic(32);
-            //新增用户初始密码666666
-            String password = EncoderOfMd5Util.getSaltMD5("666666", salt);
-            person.setEncryptsalt(salt);
-            person.setPassword(password);
-            personMapper.insert(person);
-            return true;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            QueryWrapper<Person> queryWrapper = new QueryWrapper<>();
+            if (StringUtils.isNotBlank(qo.getNameOrAccount())){
+                queryWrapper.lambda()
+                        .like(Person::getName,qo.getNameOrAccount()).or()
+                        .like(Person::getAccount,qo.getNameOrAccount());
+            }
+            if (qo.getRoleId() != null){
+                queryWrapper.lambda().eq(Person::getRoleId,qo.getRoleId());
+            }
+            if (qo.getEnabled() != null){
+                queryWrapper.lambda().eq(Person::getEnabled,qo.getEnabled());
+            }
+            if (qo.getOnlined() != null){
+                queryWrapper.lambda().eq(Person::getOnlined,qo.getOnlined());
+            }
+            if (StringUtils.isNotBlank(qo.getOrder())){
+                queryWrapper.orderBy(true,qo.getSort(),
+                        Person.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
+            } else {
+                queryWrapper.lambda().orderByDesc(Person::getCreatedTime);
+            }
+            Page<Person> page = new Page<>(qo.getPageNum(), qo.getPageSize());
+            return PageResponse.of(baseMapper.selectPage(page,queryWrapper));
+        } catch (NoSuchFieldException e) {
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
 
     @Override
     public Person getByAccount(String account) {
-        LambdaQueryWrapper<Person> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Person::getAccount,account);
-        queryWrapper.eq(Person::getDeleted,YesOrNo.NO.getValue());
-        return personMapper.selectOne(queryWrapper);
+        LambdaQueryWrapper<Person> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Person::getAccount,account);
+        List<Person> personList = baseMapper.selectList(lambdaQueryWrapper);
+        return personList.isEmpty()?null:personList.get(0);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean updateOnlined(Integer personId, Integer onlined) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean save(Person person) {
         try {
-            personMapper.updateOnlined(personId, onlined);
+            String salt = RandomStringUtils.randomAlphabetic(32);
+            //密码加密
+            String password = EncoderOfMd5Util.getSaltMD5(person.getPassword(), salt);
+            person.setEncryptsalt(salt);
+            person.setPassword(password);
+            baseMapper.insert(person);
             return true;
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean updatePwd(Integer personId, String oldPassword, String newPassword) {
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updatePasswordById(Integer personId, String oldPassword, String newPassword) {
         try {
-            //校验旧密码是否正确
-            Person person = personMapper.selectById(personId);
-            if (!person.getPassword().equals(EncoderOfMd5Util.getSaltMD5(oldPassword, person.getEncryptsalt()))){
-                return false;
+            Person person = baseMapper.selectById(personId);
+            String existPassword = EncoderOfMd5Util.getSaltMD5(person.getPassword(), person.getEncryptsalt());
+            if (!existPassword.equals(oldPassword)){
+                throw  new BusinessException(ResultCode.PASSWORD_NOT_EXIST);
             }
             String salt = RandomStringUtils.randomAlphabetic(32);
-            //新增用户初始密码666666
-            String password = EncoderOfMd5Util.getSaltMD5(newPassword, salt);
-            Person person1 = new Person();
-            person1.setPersonId(personId);
-            person1.setPassword(password);
-            person1.setEncryptsalt(salt);
-            personMapper.updateById(person1);
+            //密码加密
+            String password = EncoderOfMd5Util.getSaltMD5(person.getPassword(), salt);
+            person.setEncryptsalt(salt);
+            person.setPassword(password);
+            baseMapper.updateById(person);
             return true;
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean resetPwd(Integer personId) {
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateOnlined(Integer personId, Integer onlined) {
         try {
-            String salt = RandomStringUtils.randomAlphabetic(32);
-            //新增用户初始密码666666
-            String password = EncoderOfMd5Util.getSaltMD5("666666", salt);
             Person person = new Person();
             person.setPersonId(personId);
-            person.setPassword(password);
-            person.setEncryptsalt(salt);
-            personMapper.updateById(person);
+            person.setOnlined(onlined);
+            baseMapper.updateById(person);
             return true;
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean delete(String ids) {
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateEnabled(Integer personId, Integer enabled) {
         try {
-            personMapper.delete(ids);
+            Person person = new Person();
+            person.setPersonId(personId);
+            person.setEnabled(enabled);
+            baseMapper.updateById(person);
             return true;
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
+
 }

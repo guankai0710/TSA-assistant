@@ -1,8 +1,6 @@
 package com.ryan.tsa.common.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 

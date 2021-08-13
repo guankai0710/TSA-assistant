@@ -24,7 +24,7 @@ public class MyAutoGenerator {
 
         /**  需要修改部分 */
         // 填写代码生成的目录
-        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-common";
+        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-auth";
         //开发者信息
         String author = "Ryan";
         //数据源配置
@@ -35,12 +35,12 @@ public class MyAutoGenerator {
 
         //包信息
         String parentPackageName = "com.ryan.tsa";
-        String moduleName = "common";
+        String moduleName = "auth";
 
         //表名
-        String[] tableName = {"tsa_sys_dictionary","tsa_sys_parameter"};
+        String[] tableName = {"tsa_auth_person","tsa_auth_role"};
         //表前缀
-        String tablePrefix = "tsa_";
+        String tablePrefix = "tsa_auth";
 
 
 

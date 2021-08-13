@@ -10,9 +10,11 @@ import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.mapper.SysDictionaryMapper;
 import com.ryan.tsa.common.qo.SysDictionaryQo;
 import com.ryan.tsa.common.response.PageResponse;
+import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.service.ISysDictionaryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -35,13 +37,22 @@ public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, S
     public PageResponse<SysDictionary> pageList(SysDictionaryQo qo) {
         try {
             QueryWrapper<SysDictionary> queryWrapper = new QueryWrapper<>();
-            queryWrapper.lambda().eq(SysDictionary::getTypeCode,qo.getTypeCode()).or().like(SysDictionary::getTypeName,qo.getTypeName());
-            queryWrapper.orderBy(true,qo.getSort(),SysDictionary.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
+            if (StringUtils.isNotBlank(qo.getTypeCodeOrTypeName())){
+                queryWrapper.lambda()
+                        .like(SysDictionary::getTypeCode,qo.getTypeCodeOrTypeName()).or()
+                        .like(SysDictionary::getTypeName,qo.getTypeCodeOrTypeName());
+            }
+            if (StringUtils.isNotBlank(qo.getOrder())){
+                queryWrapper.orderBy(true,qo.getSort(),
+                        SysDictionary.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
+            } else {
+                queryWrapper.lambda().orderByDesc(SysDictionary::getCreatedTime);
+            }
             Page<SysDictionary> page = new Page<>(qo.getPageNum(),qo.getPageSize());
             return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            throw new BusinessException();
+            throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }
 }

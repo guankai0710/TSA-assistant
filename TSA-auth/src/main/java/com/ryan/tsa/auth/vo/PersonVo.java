@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户 
+ * 用户信息
  * </p>
  *
- * @author ryan
- * @since 2021-04-23
+ * @author Ryan
+ * @since 2021-08-13
  */
 @Data
 public class PersonVo implements Serializable {
@@ -36,6 +36,16 @@ public class PersonVo implements Serializable {
      * 账号
      */
     private String account;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 加密盐
+     */
+    private String encryptsalt;
 
     /**
      * 头像

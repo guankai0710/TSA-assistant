@@ -9,11 +9,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 角色
+ * 角色信息
  * </p>
  *
- * @author ryan
- * @since 2021-04-28
+ * @author Ryan
+ * @since 2021-08-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -51,12 +51,6 @@ public class Role implements Serializable {
      */
     @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
     private String updatedTime;
-
-    /**
-     * 是否删除(1:是；0:否)
-     */
-    @TableField("deleted")
-    private Integer deleted;
 
 
 }

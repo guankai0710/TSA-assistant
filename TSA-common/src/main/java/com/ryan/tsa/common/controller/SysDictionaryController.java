@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/common/sys-dictionary")
-public class SysDictionaryController {
+public class SysDictionaryController extends BaseController {
 
     @Autowired
     private ISysDictionaryService sysDictionaryService;

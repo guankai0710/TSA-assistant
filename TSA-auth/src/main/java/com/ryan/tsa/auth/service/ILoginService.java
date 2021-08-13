@@ -8,7 +8,7 @@ import com.ryan.tsa.common.response.Result;
  * @author guankai
  * @date 2021/4/29
  **/
-public interface LoginService {
+public interface ILoginService {
 
     /**
      * 登录
@@ -36,6 +36,6 @@ public interface LoginService {
      * @param personId 用户id
      * @return
      */
-    Result logon(String token, Integer personId);
+    Result logout(String token, Integer personId);
 
 }

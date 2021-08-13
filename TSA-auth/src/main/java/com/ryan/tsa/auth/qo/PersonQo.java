@@ -7,11 +7,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户 
+ * 用户信息
  * </p>
  *
- * @author ryan
- * @since 2021-04-23
+ * @author Ryan
+ * @since 2021-08-13
  */
 @Data
 public class PersonQo extends BaseQo implements Serializable {
@@ -19,14 +19,14 @@ public class PersonQo extends BaseQo implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
-     * 用户名称
+     * 角色id
      */
-    private String name;
+    private Integer roleId;
 
     /**
-     * 账号
+     * 用户名称/账号
      */
-    private String account;
+    private String nameOrAccount;
 
     /**
      * 是否在线(1:是；0:否)
@@ -37,6 +37,5 @@ public class PersonQo extends BaseQo implements Serializable {
      * 是否启用(1:是；0:否)
      */
     private Integer enabled;
-
 
 }

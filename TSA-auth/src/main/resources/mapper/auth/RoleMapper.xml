@@ -2,31 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ryan.tsa.auth.mapper.RoleMapper">
 
-    <select id="queryList" resultType="com.ryan.tsa.auth.vo.RoleVo" parameterType="com.ryan.tsa.auth.qo.RoleQo">
-        SELECT
-            role_id as roleId,
-            name as name,
-            memo as memo
-        FROM
-            tsa_auth_role
-        <where>
-            <if test="name != null and name != ''">
-                AND name like concat('%', #{name, jdbcType=VARCHAR}, '%')
-            </if>
-            <if test="deleted != null">
-                AND deleted = #{deleted}
-            </if>
-        </where>
-    </select>
-
-    <update id="delete" parameterType="java.lang.String">
-        UPDATE
-            tsa_auth_role
-        SET
-            deleted = 1,
-            updated_time = NOW()
-        WHERE
-            role_id in (#{ids})
-    </update>
-
 </mapper>

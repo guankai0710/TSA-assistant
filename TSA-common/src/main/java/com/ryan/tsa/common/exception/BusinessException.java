@@ -19,10 +19,6 @@ public class BusinessException extends RuntimeException {
      */
     private ResultCode resultCode;
 
-    public BusinessException(){
-
-    }
-
     public BusinessException(ResultCode resultCode) {
         this.resultCode = resultCode;
     }

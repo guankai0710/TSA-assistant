@@ -18,13 +18,8 @@ public class SysDictionaryQo extends BaseQo implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
-     * 字典类型编码
+     * 字典类型编码/字典类型名称
      */
-    private String typeCode;
-
-    /**
-     * 字典类型名称
-     */
-    private String typeName;
+    private String typeCodeOrTypeName;
 
 }

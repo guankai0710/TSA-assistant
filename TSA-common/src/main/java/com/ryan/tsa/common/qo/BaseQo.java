@@ -31,9 +31,9 @@ public class BaseQo implements Serializable {
     private String order;
 
     /**
-     * 排序方式 是否是 ASC 排序
+     * 排序方式 是否是 ASC 排序；默认 DESC 倒排序
      */
-    private Boolean sort;
+    private Boolean sort = false;
 
 
 }

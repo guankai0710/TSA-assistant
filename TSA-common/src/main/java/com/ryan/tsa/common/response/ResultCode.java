@@ -23,9 +23,10 @@ public enum ResultCode {
     USER_ACCOUNT_FORBIDDEN(2003, "账号已被禁用"),
     USER_NOT_EXIST(2004, "用户不存在"),
     USER_HAS_EXISTED(2005, "用户已存在"),
+    PASSWORD_NOT_EXIST(2006, "密码错误"),
 
-    TOKEN_NOT_EXIST(2006, "Token缺失"),
-    TOKEN_ERROR(2007, "Token异常或过期"),
+    TOKEN_NOT_EXIST(2007, "Token缺失"),
+    TOKEN_ERROR(2008, "Token异常或过期"),
 
     // 接口错误：3001~3999
     INTERFACE_CONNECTION_TIME_OUT(3001, "接口连接超时"),

@@ -1,40 +1,20 @@
 package com.ryan.tsa.auth.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ryan.tsa.auth.domain.Role;
-import com.ryan.tsa.auth.qo.RoleQo;
-import com.ryan.tsa.auth.vo.RoleVo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * <p>
- * 角色 Mapper 接口
+ * 角色信息 Mapper 接口
  * </p>
  *
- * @author ryan
- * @since 2021-04-28
+ * @author Ryan
+ * @since 2021-08-13
  */
-@Repository
 @Mapper
+@Repository
 public interface RoleMapper extends BaseMapper<Role> {
 
-    /**
-     * 分页查询
-     *
-     * @param qo 查询条件
-     * @return
-     */
-    List<RoleVo> queryList(RoleQo qo);
-
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    void delete(@Param("ids") String ids);
 }

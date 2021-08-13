@@ -7,11 +7,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 角色
+ * 角色信息
  * </p>
  *
- * @author ryan
- * @since 2021-04-23
+ * @author Ryan
+ * @since 2021-08-13
  */
 @Data
 public class RoleQo extends BaseQo implements Serializable {

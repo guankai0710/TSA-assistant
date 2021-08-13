@@ -32,6 +32,8 @@ public class LoginFilter implements Filter, Ordered {
     private static final List<String> EXCLUDED_PATHS = new ArrayList<>(10);
 
     static {
+        //静态文件
+        EXCLUDED_PATHS.addAll(Arrays.asList(".html",".css",".js",".txt","doc","docx","xls","xlsx",".jpg",".zip"));
         //接口白名单
         EXCLUDED_PATHS.add("/tsa/auth/login");
 
