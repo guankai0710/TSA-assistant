@@ -1,98 +1,47 @@
 package com.ryan.tsa.common.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryan.tsa.common.domain.SysDictionary;
 import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.mapper.SysDictionaryMapper;
 import com.ryan.tsa.common.qo.SysDictionaryQo;
 import com.ryan.tsa.common.response.PageResponse;
-import com.ryan.tsa.common.response.ResultCode;
-import com.ryan.tsa.common.service.SysDictionaryService;
-import com.ryan.tsa.common.vo.SysDictionaryVo;
+import com.ryan.tsa.common.service.ISysDictionaryService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * <p>
- * 系统字典  服务实现类
+ * 系统字典 服务实现类
  * </p>
  *
  * @author ryan
- * @since 2021-04-28
+ * @since 2021-08-12
  */
 @Service
 @Slf4j
-public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, SysDictionary> implements SysDictionaryService {
-
-    @Autowired
-    private SysDictionaryMapper sysDictionaryMapper;
+public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, SysDictionary> implements ISysDictionaryService {
 
     @Override
-    public PageResponse<SysDictionaryVo> pageList(SysDictionaryQo qo) {
-        PageHelper.startPage(qo.getPageNum(),qo.getPageSize(),"updated_time desc");
-        List<SysDictionaryVo> sysDictionaryVos = sysDictionaryMapper.queryList(qo);
-        return PageResponse.of(sysDictionaryVos);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public Boolean save(String json) {
-        SysDictionary sysDictionary = JSON.parseObject(json, SysDictionary.class);
-        //参数校验
-        if (StringUtils.isBlank(sysDictionary.getTypeCode()) || StringUtils.isBlank(sysDictionary.getTypeName())
-            || StringUtils.isBlank(sysDictionary.getDicValue()) || StringUtils.isBlank(sysDictionary.getDicName())){
-            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
-        }
+    public PageResponse<SysDictionary> pageList(SysDictionaryQo qo) {
         try {
-            sysDictionary.setDeleted(0);
-            sysDictionaryMapper.insert(sysDictionary);
-            return true;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+            QueryWrapper<SysDictionary> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(SysDictionary::getTypeCode,qo.getTypeCode()).or().like(SysDictionary::getTypeName,qo.getTypeName());
+            queryWrapper.orderBy(true,qo.getSort(),SysDictionary.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
+            Page<SysDictionary> page = new Page<>(qo.getPageNum(),qo.getPageSize());
+            return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new BusinessException();
         }
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public Boolean update(String json) {
-        SysDictionary sysDictionary = JSON.parseObject(json, SysDictionary.class);
-        //参数校验
-        if (sysDictionary.getSysDicId() == null){
-            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
-        }
-        try {
-            sysDictionaryMapper.updateById(sysDictionary);
-            return true;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
-        }
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public Boolean delete(String ids) {
-        try {
-            sysDictionaryMapper.delete(ids);
-            return true;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
-        }
-    }
-
-    @Override
-    public List<SysDictionaryVo> getByTypeCode(String typeCode) {
-        return Optional.ofNullable(sysDictionaryMapper.getByTypeCode(typeCode)).orElse(new ArrayList<>());
     }
 }

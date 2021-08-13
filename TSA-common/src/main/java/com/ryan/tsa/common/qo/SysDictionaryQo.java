@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 系统字典 
+ * 系统字典
  * </p>
  *
  * @author ryan
- * @since 2021-04-28
+ * @since 2021-08-12
  */
 @Data
 public class SysDictionaryQo extends BaseQo implements Serializable {
@@ -18,8 +18,13 @@ public class SysDictionaryQo extends BaseQo implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
-     * 字典类型编码/字典名称
+     * 字典类型编码
      */
-    private String typeCodeOrDicName;
+    private String typeCode;
+
+    /**
+     * 字典类型名称
+     */
+    private String typeName;
 
 }

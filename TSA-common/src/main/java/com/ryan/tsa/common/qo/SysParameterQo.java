@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 系统参数 
+ * 系统参数
  * </p>
  *
  * @author ryan
- * @since 2021-04-28
+ * @since 2021-08-12
  */
 @Data
 public class SysParameterQo extends BaseQo implements Serializable {
@@ -18,9 +18,13 @@ public class SysParameterQo extends BaseQo implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
-     * 系统参数编码/系统参数名称
+     * 系统参数编码
      */
-    private String paramCodeOrParamName;
+    private String paramCode;
 
+    /**
+     * 系统参数名称
+     */
+    private String paramName;
 
 }

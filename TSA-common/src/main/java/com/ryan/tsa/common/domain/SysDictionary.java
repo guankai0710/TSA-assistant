@@ -9,11 +9,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 系统字典 
+ * 系统字典
  * </p>
  *
  * @author ryan
- * @since 2021-04-28
+ * @since 2021-08-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -69,12 +69,6 @@ public class SysDictionary implements Serializable {
      */
     @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
     private String updatedTime;
-
-    /**
-     * 是否删除(1:是；0:否)
-     */
-    @TableField("deleted")
-    private Integer deleted;
 
 
 }

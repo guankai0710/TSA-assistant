@@ -1,6 +1,6 @@
 package com.ryan.tsa.common.response;
 
-import com.github.pagehelper.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 类描述：自定义分页数据返回
  *
- * 依赖于PageHelper分页插件
+ * 依赖于Mybatis-Plus
  *
  * @author guankai
  * @date 2021/4/26
@@ -20,10 +20,10 @@ public class PageResponse<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** 当前页 */
-    private int pageNum;
+    private long pageNum;
 
     /** 每页的数量 */
-    private int pageSize;
+    private long pageSize;
 
     /** 总条数 */
     private long total;
@@ -31,21 +31,14 @@ public class PageResponse<T> implements Serializable {
     /** 数据集合 */
     private List<T> list;
 
-    public PageResponse(List<T> list) {
-        this.list = list;
-        if (list instanceof Page) {
-            Page page = (Page) list;
-            this.pageNum = page.getPageNum();
-            this.pageSize = page.getPageSize();
-            this.total = page.getTotal();
-        } else {
-            this.pageNum = 1;
-            this.pageSize = list.size();
-            this.total = list.size();
-        }
+    public PageResponse(Page<T> page) {
+        this.pageNum = page.getCurrent();
+        this.pageSize = page.getSize();
+        this.total = page.getTotal();
+        this.list = page.getRecords();
     }
 
-    public static <T> PageResponse<T> of(List<T> list){
-        return new PageResponse<T>(list);
+    public static <T> PageResponse<T> of(Page<T> page){
+        return new PageResponse<T>(page);
     }
 }

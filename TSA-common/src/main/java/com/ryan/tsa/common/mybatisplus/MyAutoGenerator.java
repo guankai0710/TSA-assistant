@@ -24,21 +24,21 @@ public class MyAutoGenerator {
 
         /**  需要修改部分 */
         // 填写代码生成的目录
-        String projectPath = "E:\\idea_workspace\\my\\TSA-assistant\\TSA-web\\TSA-web-business";
+        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-common";
         //开发者信息
-        String author = "ryan";
+        String author = "Ryan";
         //数据源配置
-        String dbUrl = "jdbc:mysql://121.41.230.125:3306/tsa_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+        String dbUrl = "jdbc:mysql://localhost:3306/tsa_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
         String driverName = "com.mysql.cj.jdbc.Driver";
         String username = "root";
-        String password = "Guan123,.";
+        String password = "root";
 
         //包信息
         String parentPackageName = "com.ryan.tsa";
-        String moduleName = "web.business";
+        String moduleName = "common";
 
         //表名
-        String[] tableName = {"tsa_business_record"};
+        String[] tableName = {"tsa_sys_dictionary","tsa_sys_parameter"};
         //表前缀
         String tablePrefix = "tsa_";
 
@@ -68,7 +68,7 @@ public class MyAutoGenerator {
         // 配置日期类型，此处为 ONLY_DATE（可选）
         gc.setDateType(DateType.ONLY_DATE);
         // 默认生成的 service 会有 I 前缀
-        gc.setServiceName("%sService");
+//        gc.setServiceName("%sService");
         mpg.setGlobalConfig(gc);
 
         // Step3：数据源配置

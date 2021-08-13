@@ -1,16 +1,18 @@
 package com.ryan.tsa.common.vo;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * <p>
- * 系统参数 
+ * 系统参数
  * </p>
  *
  * @author ryan
- * @since 2021-04-28
+ * @since 2021-08-12
  */
 @Data
 public class SysParameterVo implements Serializable {
