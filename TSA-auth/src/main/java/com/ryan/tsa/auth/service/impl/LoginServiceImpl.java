@@ -70,6 +70,7 @@ public class LoginServiceImpl implements ILoginService {
         newPerson.setPassword(password);
         //注册只能注册客户角色用户
         newPerson.setRoleId(3);
+        newPerson.setName("客户_" + System.currentTimeMillis());
         boolean result = personService.save(newPerson);
         Map<String, Boolean> resultMap = new HashMap<>(2);
         resultMap.put("result", result);

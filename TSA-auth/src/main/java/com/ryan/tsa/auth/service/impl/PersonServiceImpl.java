@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,6 +66,11 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     }
 
     @Override
+    public List<Map<String, Object>> dropDownList() {
+        return baseMapper.dropDownList();
+    }
+
+    @Override
     public Person getByAccount(String account) {
         LambdaQueryWrapper<Person> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Person::getAccount,account);
@@ -75,6 +81,10 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(Person person) {
+        if (person.getRoleId() == null || StringUtils.isBlank(person.getName()) ||
+            StringUtils.isBlank(person.getAccount()) || StringUtils.isBlank(person.getPassword())){
+            throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
+        }
         try {
             String salt = RandomStringUtils.randomAlphabetic(32);
             //密码加密
@@ -84,6 +94,20 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
             baseMapper.insert(person);
             return true;
         } catch (Exception e) {
+            throw new BusinessException(ResultCode.SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateById(Person person) {
+        try {
+            if (person.getPersonId() == null){
+                throw new BusinessException(ResultCode.PARAM_NOT_EXIST);
+            }
+            baseMapper.updateById(person);
+            return true;
+        } catch (BusinessException e) {
             throw new BusinessException(ResultCode.SERVER_ERROR);
         }
     }

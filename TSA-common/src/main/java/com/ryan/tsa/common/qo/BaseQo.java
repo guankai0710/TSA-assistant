@@ -1,6 +1,8 @@
 package com.ryan.tsa.common.qo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -13,6 +15,8 @@ import java.io.Serializable;
  * @since 2021-08-14
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;

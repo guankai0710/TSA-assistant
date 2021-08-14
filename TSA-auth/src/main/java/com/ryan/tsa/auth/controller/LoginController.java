@@ -55,12 +55,11 @@ public class LoginController extends BaseController {
     /**
      * 退出
      *
-     * @param personId 用户id
      * @return
      */
     @PostMapping("/logout")
-    public Result logout(HttpServletRequest request, @RequestParam("personId") Integer personId){
-        return loginService.logout(getToken(request), personId);
+    public Result logout(HttpServletRequest request){
+        return loginService.logout(getToken(request), getPersonId(request));
     }
 
 }

@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ryan.tsa.auth.qo.PersonQo;
 import com.ryan.tsa.common.response.PageResponse;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 用户信息 服务类
@@ -24,6 +27,15 @@ public interface IPersonService extends IService<Person> {
      * @return
      **/
     PageResponse<Person> pageList(PersonQo qo);
+
+    /**
+     * 用户下拉列表
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    List<Map<String,Object>> dropDownList();
 
     /**
      * 根据账号查询用户信息

@@ -1,8 +1,10 @@
 package com.ryan.tsa.auth.qo;
 
 import com.ryan.tsa.common.qo.BaseQo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -16,6 +18,8 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleQo extends BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -25,4 +29,8 @@ public class RoleQo extends BaseQo implements Serializable {
      */
     private String name;
 
+    public RoleQo(Integer pageNum, Integer pageSize, String order, Boolean sort, String name) {
+        super(pageNum, pageSize, order, sort);
+        this.name = name;
+    }
 }
