@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ryan.tsa.common.domain.SysDictionary;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryan.tsa.common.domain.SysParameter;
 import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.mapper.SysParameterMapper;
@@ -12,7 +12,6 @@ import com.ryan.tsa.common.qo.SysParameterQo;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.service.ISysParameterService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -33,21 +32,43 @@ public class SysParameterServiceImpl extends ServiceImpl<SysParameterMapper, Sys
 
     @Override
     public PageResponse<SysParameter> pageList(SysParameterQo qo) {
+        QueryWrapper<SysParameter> queryWrapper = new QueryWrapper<>();
+        setQueryCondition(queryWrapper,qo);
+        setOrderBy(queryWrapper,qo);
+        Page<SysParameter> page = new Page<>(qo.getPageNum(),qo.getPageSize());
+        return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
+    }
+
+    /**
+     * 设置查询条件
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setQueryCondition(QueryWrapper<SysParameter> queryWrapper, SysParameterQo qo){
+        if (StringUtils.isNotBlank(qo.getParamCodeOrParamName())){
+            queryWrapper.lambda()
+                    .like(SysParameter::getParamCode,qo.getParamCodeOrParamName()).or()
+                    .like(SysParameter::getParamName,qo.getParamCodeOrParamName());
+        }
+    }
+
+    /**
+     * 设置排序
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setOrderBy(QueryWrapper<SysParameter> queryWrapper, SysParameterQo qo){
         try {
-            QueryWrapper<SysParameter> queryWrapper = new QueryWrapper<>();
-            if (StringUtils.isNotBlank(qo.getParamCodeOrParamName())){
-                queryWrapper.lambda()
-                        .like(SysParameter::getParamCode,qo.getParamCodeOrParamName()).or()
-                        .like(SysParameter::getParamName,qo.getParamCodeOrParamName());
-            }
             if (StringUtils.isNotBlank(qo.getOrder())){
                 queryWrapper.orderBy(true,qo.getSort(),
                         SysParameter.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
             } else {
                 queryWrapper.lambda().orderByDesc(SysParameter::getCreatedTime);
             }
-            Page<SysParameter> page = new Page<>(qo.getPageNum(),qo.getPageSize());
-            return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
         } catch (NoSuchFieldException e) {
             throw new BusinessException(ResultCode.SERVER_ERROR);
         }

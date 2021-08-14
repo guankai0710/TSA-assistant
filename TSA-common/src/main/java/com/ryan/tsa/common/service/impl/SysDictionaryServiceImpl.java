@@ -3,8 +3,8 @@ package com.ryan.tsa.common.service.impl;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryan.tsa.common.domain.SysDictionary;
 import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.mapper.SysDictionaryMapper;
@@ -12,16 +12,12 @@ import com.ryan.tsa.common.qo.SysDictionaryQo;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.service.ISysDictionaryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  * <p>
@@ -37,21 +33,43 @@ public class SysDictionaryServiceImpl extends ServiceImpl<SysDictionaryMapper, S
 
     @Override
     public PageResponse<SysDictionary> pageList(SysDictionaryQo qo) {
+        QueryWrapper<SysDictionary> queryWrapper = new QueryWrapper<>();
+        setQueryCondition(queryWrapper,qo);
+        setOrderBy(queryWrapper,qo);
+        Page<SysDictionary> page = new Page<>(qo.getPageNum(),qo.getPageSize());
+        return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
+    }
+
+    /**
+     * 设置查询条件
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setQueryCondition(QueryWrapper<SysDictionary> queryWrapper, SysDictionaryQo qo){
+        if (StringUtils.isNotBlank(qo.getTypeCodeOrTypeName())){
+            queryWrapper.lambda()
+                    .like(SysDictionary::getTypeCode,qo.getTypeCodeOrTypeName()).or()
+                    .like(SysDictionary::getTypeName,qo.getTypeCodeOrTypeName());
+        }
+    }
+
+    /**
+     * 设置排序
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setOrderBy(QueryWrapper<SysDictionary> queryWrapper, SysDictionaryQo qo){
         try {
-            QueryWrapper<SysDictionary> queryWrapper = new QueryWrapper<>();
-            if (StringUtils.isNotBlank(qo.getTypeCodeOrTypeName())){
-                queryWrapper.lambda()
-                        .like(SysDictionary::getTypeCode,qo.getTypeCodeOrTypeName()).or()
-                        .like(SysDictionary::getTypeName,qo.getTypeCodeOrTypeName());
-            }
             if (StringUtils.isNotBlank(qo.getOrder())){
                 queryWrapper.orderBy(true,qo.getSort(),
                         SysDictionary.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
             } else {
                 queryWrapper.lambda().orderByDesc(SysDictionary::getCreatedTime);
             }
-            Page<SysDictionary> page = new Page<>(qo.getPageNum(),qo.getPageSize());
-            return PageResponse.of(baseMapper.selectPage(page, queryWrapper));
         } catch (NoSuchFieldException e) {
             throw new BusinessException(ResultCode.SERVER_ERROR);
         }

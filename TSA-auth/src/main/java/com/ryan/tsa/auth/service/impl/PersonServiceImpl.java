@@ -4,19 +4,17 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryan.tsa.auth.domain.Person;
 import com.ryan.tsa.auth.mapper.PersonMapper;
 import com.ryan.tsa.auth.qo.PersonQo;
 import com.ryan.tsa.auth.service.IPersonService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ryan.tsa.common.domain.SysDictionary;
 import com.ryan.tsa.common.exception.BusinessException;
 import com.ryan.tsa.common.response.PageResponse;
 import com.ryan.tsa.common.response.ResultCode;
 import com.ryan.tsa.common.utils.EncoderOfMd5Util;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,30 +34,52 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
 
     @Override
     public PageResponse<Person> pageList(PersonQo qo) {
+        QueryWrapper<Person> queryWrapper = new QueryWrapper<>();
+        setQueryCondition(queryWrapper,qo);
+        setOrderBy(queryWrapper,qo);
+        Page<Person> page = new Page<>(qo.getPageNum(), qo.getPageSize());
+        return PageResponse.of(baseMapper.selectPage(page,queryWrapper));
+    }
+
+    /**
+     * 设置查询条件
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setQueryCondition(QueryWrapper<Person> queryWrapper, PersonQo qo){
+        if (qo.getRoleId() != null){
+            queryWrapper.lambda().eq(Person::getRoleId,qo.getRoleId());
+        }
+        if (qo.getEnabled() != null){
+            queryWrapper.lambda().eq(Person::getEnabled,qo.getEnabled());
+        }
+        if (qo.getOnlined() != null){
+            queryWrapper.lambda().eq(Person::getOnlined,qo.getOnlined());
+        }
+        if (StringUtils.isNotBlank(qo.getNameOrAccount())){
+            queryWrapper.lambda()
+                    .like(Person::getName,qo.getNameOrAccount()).or()
+                    .like(Person::getAccount,qo.getNameOrAccount());
+        }
+    }
+
+    /**
+     * 设置排序
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setOrderBy(QueryWrapper<Person> queryWrapper, PersonQo qo){
         try {
-            QueryWrapper<Person> queryWrapper = new QueryWrapper<>();
-            if (qo.getRoleId() != null){
-                queryWrapper.lambda().eq(Person::getRoleId,qo.getRoleId());
-            }
-            if (qo.getEnabled() != null){
-                queryWrapper.lambda().eq(Person::getEnabled,qo.getEnabled());
-            }
-            if (qo.getOnlined() != null){
-                queryWrapper.lambda().eq(Person::getOnlined,qo.getOnlined());
-            }
-            if (StringUtils.isNotBlank(qo.getNameOrAccount())){
-                queryWrapper.lambda()
-                        .like(Person::getName,qo.getNameOrAccount()).or()
-                        .like(Person::getAccount,qo.getNameOrAccount());
-            }
             if (StringUtils.isNotBlank(qo.getOrder())){
                 queryWrapper.orderBy(true,qo.getSort(),
                         Person.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
             } else {
                 queryWrapper.lambda().orderByDesc(Person::getCreatedTime);
             }
-            Page<Person> page = new Page<>(qo.getPageNum(), qo.getPageSize());
-            return PageResponse.of(baseMapper.selectPage(page,queryWrapper));
         } catch (NoSuchFieldException e) {
             throw new BusinessException(ResultCode.SERVER_ERROR);
         }

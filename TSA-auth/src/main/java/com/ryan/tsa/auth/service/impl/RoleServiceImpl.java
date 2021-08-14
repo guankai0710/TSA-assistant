@@ -31,19 +31,41 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     public PageResponse<Role> pageList(RoleQo qo) {
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
+        setQueryCondition(queryWrapper,qo);
+        setOrderBy(queryWrapper,qo);
+        Page<Role> page = new Page<>(qo.getPageNum(), qo.getPageSize());
+        return PageResponse.of(baseMapper.selectPage(page,queryWrapper));
+    }
+
+    /**
+     * 设置查询条件
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setQueryCondition(QueryWrapper<Role> queryWrapper, RoleQo qo){
+        if (StringUtils.isNotBlank(qo.getName())){
+            queryWrapper.lambda().like(Role::getName,qo.getName());
+        }
+    }
+
+    /**
+     * 设置排序
+     *
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    private void setOrderBy(QueryWrapper<Role> queryWrapper, RoleQo qo){
         try {
-            QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-            if (StringUtils.isNotBlank(qo.getName())){
-                queryWrapper.lambda().like(Role::getName,qo.getName());
-            }
             if (StringUtils.isNotBlank(qo.getOrder())){
                 queryWrapper.orderBy(true,qo.getSort(),
                         Role.class.getDeclaredField(qo.getOrder()).getAnnotation(TableField.class).value());
             } else {
                 queryWrapper.lambda().orderByDesc(Role::getCreatedTime);
             }
-            Page<Role> page = new Page<>(qo.getPageNum(), qo.getPageSize());
-            return PageResponse.of(baseMapper.selectPage(page,queryWrapper));
         } catch (NoSuchFieldException e) {
             throw new BusinessException(ResultCode.SERVER_ERROR);
         }
