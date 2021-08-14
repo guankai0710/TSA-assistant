@@ -38,11 +38,6 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     public PageResponse<Person> pageList(PersonQo qo) {
         try {
             QueryWrapper<Person> queryWrapper = new QueryWrapper<>();
-            if (StringUtils.isNotBlank(qo.getNameOrAccount())){
-                queryWrapper.lambda()
-                        .like(Person::getName,qo.getNameOrAccount()).or()
-                        .like(Person::getAccount,qo.getNameOrAccount());
-            }
             if (qo.getRoleId() != null){
                 queryWrapper.lambda().eq(Person::getRoleId,qo.getRoleId());
             }
@@ -51,6 +46,11 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
             }
             if (qo.getOnlined() != null){
                 queryWrapper.lambda().eq(Person::getOnlined,qo.getOnlined());
+            }
+            if (StringUtils.isNotBlank(qo.getNameOrAccount())){
+                queryWrapper.lambda()
+                        .like(Person::getName,qo.getNameOrAccount()).or()
+                        .like(Person::getAccount,qo.getNameOrAccount());
             }
             if (StringUtils.isNotBlank(qo.getOrder())){
                 queryWrapper.orderBy(true,qo.getSort(),

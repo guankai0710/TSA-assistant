@@ -115,6 +115,7 @@ public class MyAutoGenerator {
         // 如果模板引擎是 velocity
          String xmlTtemplatePath = "/templates/mapper.xml.vm";
          String mapperTtemplatePath = "templates/mybatisplus/mapper.java.vm";
+         String qoTtemplatePath = "templates/mybatisplus/qo.java.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
@@ -133,6 +134,14 @@ public class MyAutoGenerator {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 return projectPath + "/src/main/java/" + pc.getParent().replace(".","/") + "/"
                         + pc.getMapper() + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
+            }
+        });
+        focList.add(new FileOutConfig(qoTtemplatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                return projectPath + "/src/main/java/" + pc.getParent().replace(".","/")
+                        + "/qo/" + tableInfo.getEntityName() + "Qo" + StringPool.DOT_JAVA;
             }
         });
 

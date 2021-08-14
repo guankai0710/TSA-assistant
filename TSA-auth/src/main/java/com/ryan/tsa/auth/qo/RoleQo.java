@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2021-08-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleQo extends BaseQo implements Serializable {

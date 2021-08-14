@@ -1,0 +1,23 @@
+package com.ryan.tsa.$!{package.ModuleName}.qo;
+
+import com.ryan.tsa.common.qo.BaseQo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+
+/**
+ * <p>
+ * $!{table.comment} 查询条件
+ * </p>
+ *
+ * @author $!{author}
+ * @since $!{date}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class $!{entity}Qo extends BaseQo implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+}

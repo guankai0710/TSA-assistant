@@ -17,4 +17,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysParameterMapper extends BaseMapper<SysParameter> {
 
+
+    /**
+     * 根据系统参数编码查询系统参数值
+     *
+     * @param paramCode 系统参数编码
+     * @author Ryan
+     * @date 2021/8/14
+     * @return
+     **/
+    String getParamValueByParamCode(String paramCode);
+
 }

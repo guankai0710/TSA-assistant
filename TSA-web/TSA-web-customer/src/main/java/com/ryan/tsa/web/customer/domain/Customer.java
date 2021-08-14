@@ -1,14 +1,16 @@
 package com.ryan.tsa.web.customer.domain;
 
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -20,6 +22,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("tsa_customer")
 public class Customer implements Serializable {
 
@@ -76,14 +80,14 @@ public class Customer implements Serializable {
     /**
      * 创建时间
      */
-    @TableField("created_time")
-    private Date createdTime;
+    @TableField(value = "created_time",fill = FieldFill.INSERT)
+    private String createdTime;
 
     /**
      * 更新时间
      */
-    @TableField("updated_time")
-    private Date updatedTime;
+    @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
+    private String updatedTime;
 
 
 }

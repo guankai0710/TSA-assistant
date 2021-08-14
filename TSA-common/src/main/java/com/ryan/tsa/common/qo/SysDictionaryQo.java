@@ -1,7 +1,9 @@
 package com.ryan.tsa.common.qo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -14,7 +16,9 @@ import java.io.Serializable;
  * @since 2021-08-12
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class SysDictionaryQo extends BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -24,4 +28,8 @@ public class SysDictionaryQo extends BaseQo implements Serializable {
      */
     private String typeCodeOrTypeName;
 
+    public SysDictionaryQo(Integer pageNum, Integer pageSize, String order, Boolean sort, String typeCodeOrTypeName) {
+        super(pageNum, pageSize, order, sort);
+        this.typeCodeOrTypeName = typeCodeOrTypeName;
+    }
 }

@@ -1,7 +1,9 @@
 package com.ryan.tsa.web.business.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,6 +18,8 @@ import java.math.BigDecimal;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class BusinessRecordVo implements Serializable {
 
     private static final long serialVersionUID=1L;

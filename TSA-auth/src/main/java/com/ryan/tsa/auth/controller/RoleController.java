@@ -63,7 +63,7 @@ public class RoleController extends BaseController {
     /**
      * 新增
      *
-     * @param role 用户信息
+     * @param role 角色信息
      * @author Ryan
      * @date 2021/8/14
      * @return
@@ -76,7 +76,7 @@ public class RoleController extends BaseController {
     /**
      * 修改
      *
-     * @param role 用户信息
+     * @param role 角色信息
      * @author Ryan
      * @date 2021/8/14
      * @return
@@ -89,7 +89,7 @@ public class RoleController extends BaseController {
     /**
      * 批量删除
      *
-     * @param ids 用户ids
+     * @param ids 角色ids
      * @author Ryan
      * @date 2021/8/14
      * @return

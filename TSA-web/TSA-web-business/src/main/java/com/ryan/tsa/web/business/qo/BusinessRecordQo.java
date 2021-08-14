@@ -1,8 +1,10 @@
 package com.ryan.tsa.web.business.qo;
 
 import com.ryan.tsa.common.qo.BaseQo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -15,7 +17,9 @@ import java.io.Serializable;
  * @since 2021-08-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class BusinessRecordQo extends BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -38,7 +42,12 @@ public class BusinessRecordQo extends BaseQo implements Serializable {
     /**
      * 买入时间
      */
-    private String buyTime;
+    private String buyStartTime;
+
+    /**
+     * 买入时间
+     */
+    private String buyEndTime;
 
     /**
      * 交易状态
@@ -48,7 +57,12 @@ public class BusinessRecordQo extends BaseQo implements Serializable {
     /**
      * 卖出时间
      */
-    private String sellTime;
+    private String sellStartTime;
+
+    /**
+     * 卖出时间
+     */
+    private String sellEndTime;
 
 
 }
