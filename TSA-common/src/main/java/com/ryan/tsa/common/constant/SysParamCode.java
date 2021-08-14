@@ -1,11 +1,13 @@
 package com.ryan.tsa.common.constant;
 
 /**
- * 类描述：系统参数编码 常量类
+ * <p>
+ * 系统参数编码 常量类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/28
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public class SysParamCode {
 
 }

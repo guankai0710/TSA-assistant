@@ -3,11 +3,13 @@ package com.ryan.tsa.auth.service;
 import com.ryan.tsa.common.response.Result;
 
 /**
- * 类描述：登录、注册、退出
+ * <p>
+ * 登录、注册、退出 接口
+ * </p>
  *
- * @author guankai
- * @date 2021/4/29
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public interface ILoginService {
 
     /**

@@ -18,10 +18,12 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * 类描述: 登陆拦截器
+ * <p>
+ * 登录拦截器
+ * </p>
  *
- * @author ryan
- * @date 2020/8/6
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Component
 @WebFilter(filterName = "loginFilter", urlPatterns = "/*")

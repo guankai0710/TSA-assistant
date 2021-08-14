@@ -1,16 +1,20 @@
 package com.ryan.tsa.common.response;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
- * 接口返回格式
+ * <p>
+ * 返回前端数据格式
+ * </p>
  *
- * @author ryan
- * @date 2021/4/22
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 1L;

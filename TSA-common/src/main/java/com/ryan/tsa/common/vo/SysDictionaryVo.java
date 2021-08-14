@@ -1,6 +1,7 @@
 package com.ryan.tsa.common.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 2021-08-12
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class SysDictionaryVo implements Serializable {
 
     private static final long serialVersionUID=1L;

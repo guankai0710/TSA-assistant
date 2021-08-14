@@ -9,11 +9,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 类描述：自定义自动填充器
+ * <p>
+ * mybatis-plus自定义自动填充器
+ * </p>
  *
- * @author ryan
- * @date 2021/4/23
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 @Component
 public class MybatisObjectHandler implements MetaObjectHandler {
 

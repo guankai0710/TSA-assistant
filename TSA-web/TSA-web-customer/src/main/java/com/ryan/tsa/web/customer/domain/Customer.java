@@ -12,11 +12,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 客户信息 
+ * 客户信息
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -77,19 +77,13 @@ public class Customer implements Serializable {
      * 创建时间
      */
     @TableField("created_time")
-    private String createdTime;
+    private Date createdTime;
 
     /**
      * 更新时间
      */
     @TableField("updated_time")
-    private String updatedTime;
-
-    /**
-     * 是否删除(1:是；0:否)
-     */
-    @TableField("deleted")
-    private Integer deleted;
+    private Date updatedTime;
 
 
 }

@@ -6,14 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 类描述：性别 枚举类
+ * <p>
+ * 性别枚举类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/28
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public enum Sex {
 
+    /** 男 */
     MAN(1,"男"),
+
+    /** 女 */
     WOMAN(0,"女");
 
     public Integer value;

@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * <p>
  * 项目启动类
+ * </p>
+ *
+ * @author Ryan
+ * @since 2021-08-14
  */
 @EnableTransactionManagement
 @MapperScan(value = {"com.ryan.tsa.**.mapper"})

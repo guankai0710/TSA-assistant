@@ -1,10 +1,12 @@
 package com.ryan.tsa.common.response;
 
 /**
+ * <p>
  * 返回状态码枚举类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/22
+ * @author Ryan
+ * @since 2021-08-14
  */
 public enum ResultCode {
 

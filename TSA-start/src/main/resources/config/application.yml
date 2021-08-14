@@ -15,9 +15,3 @@ mybatis-plus:
   configuration:
       log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
       log-prefix: MybatisSqlSlf4jLog.
-
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql

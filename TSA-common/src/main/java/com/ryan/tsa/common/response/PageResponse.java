@@ -2,19 +2,22 @@ package com.ryan.tsa.common.response;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 类描述：自定义分页数据返回
- *
+ * <p>
+ * 自定义分页数据返回
  * 依赖于Mybatis-Plus
+ * </p>
  *
- * @author guankai
- * @date 2021/4/26
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PageResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;

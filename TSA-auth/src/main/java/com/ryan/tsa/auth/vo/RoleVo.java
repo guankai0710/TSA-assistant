@@ -1,6 +1,7 @@
 package com.ryan.tsa.auth.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 2021-08-13
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class RoleVo implements Serializable {
 
     private static final long serialVersionUID=1L;

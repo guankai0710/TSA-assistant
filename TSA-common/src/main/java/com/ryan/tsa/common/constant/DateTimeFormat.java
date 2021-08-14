@@ -1,11 +1,13 @@
 package com.ryan.tsa.common.constant;
 
 /**
- * 类描述：格式
+ * <p>
+ * 日期格式
+ * </p>
  *
- * @author ryan
- * @date 2021/4/25
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public class DateTimeFormat {
 
     public static final String DATE_YYYY_MM_DD = "yyyy-MM-dd";

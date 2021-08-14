@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- * 客户信息  Mapper 接口
+ * 客户信息 Mapper 接口
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Mapper
 @Repository

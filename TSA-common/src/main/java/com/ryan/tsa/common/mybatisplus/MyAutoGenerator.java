@@ -8,23 +8,27 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.ryan.tsa.common.controller.BaseController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：mybatis-puls代码自动生成
+ * <p>
+ * mybatis-plus代码自动生成
+ * </p>
  *
- * @author ryan
- * @date 2021/4/23
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public class MyAutoGenerator {
 
     public static void main(String[] args) {
 
         /**  需要修改部分 */
         // 填写代码生成的目录
-        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-auth";
+        String projectPath = "E:\\idea_workspace\\TSA-assistant\\TSA-web\\TSA-web-customer";
         //开发者信息
         String author = "Ryan";
         //数据源配置
@@ -35,12 +39,12 @@ public class MyAutoGenerator {
 
         //包信息
         String parentPackageName = "com.ryan.tsa";
-        String moduleName = "auth";
+        String moduleName = "web.customer";
 
         //表名
-        String[] tableName = {"tsa_auth_person","tsa_auth_role"};
+        String[] tableName = {"tsa_customer"};
         //表前缀
-        String tablePrefix = "tsa_auth";
+        String tablePrefix = "tsa_";
 
 
 
@@ -48,6 +52,8 @@ public class MyAutoGenerator {
         /*****************   开始生成代码   **********************/
         // Step1：代码生成器
         AutoGenerator mpg = new AutoGenerator();
+        // 选择 freemarker 引擎，默认 Veloctiy
+//        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
 
         // Step2：全局配置
         GlobalConfig gc = new GlobalConfig();
@@ -107,17 +113,26 @@ public class MyAutoGenerator {
         // 如果模板引擎是 freemarker
 //        String templatePath = "/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-         String templatePath = "/templates/mapper.xml.vm";
+         String xmlTtemplatePath = "/templates/mapper.xml.vm";
+         String mapperTtemplatePath = "templates/mybatisplus/mapper.java.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
+        focList.add(new FileOutConfig(xmlTtemplatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
+        focList.add(new FileOutConfig(mapperTtemplatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                return projectPath + "/src/main/java/" + pc.getParent().replace(".","/") + "/"
+                        + pc.getMapper() + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
             }
         });
 
@@ -126,8 +141,9 @@ public class MyAutoGenerator {
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
-
+        // 剔除存在自定义模板的模板
         templateConfig.setXml(null);
+        templateConfig.setMapper(null);
         mpg.setTemplate(templateConfig);
 
 
@@ -143,6 +159,8 @@ public class MyAutoGenerator {
         strategy.setEntityTableFieldAnnotationEnable(true);
         // 配置 lombok 模式
         strategy.setEntityLombokModel(true);
+        // 配置Controller继承父类
+        strategy.setSuperControllerClass(BaseController.class);
         // 配置 rest 风格的控制器（@RestController）
         strategy.setRestControllerStyle(true);
         // 配置驼峰转连字符

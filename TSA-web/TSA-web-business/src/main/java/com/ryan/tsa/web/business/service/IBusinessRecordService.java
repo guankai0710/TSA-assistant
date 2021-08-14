@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 交易记录  服务类
+ * 交易记录 服务类
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
-public interface BusinessRecordService extends IService<BusinessRecord> {
+public interface IBusinessRecordService extends IService<BusinessRecord> {
 
 }

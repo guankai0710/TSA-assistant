@@ -2,6 +2,7 @@ package com.ryan.tsa.auth.qo;
 
 import com.ryan.tsa.common.qo.BaseQo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @since 2021-08-13
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class RoleQo extends BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;

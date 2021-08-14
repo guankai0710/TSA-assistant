@@ -1,9 +1,5 @@
 package com.ryan.tsa.web.customer.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,13 +8,14 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 客户信息 
+ * 客户信息
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class CustomerVo implements Serializable {
 
     private static final long serialVersionUID=1L;

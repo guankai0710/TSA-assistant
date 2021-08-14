@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 交易记录  前端控制器
+ * 交易记录 前端控制器
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @RestController
 @RequestMapping("/web.business/business-record")

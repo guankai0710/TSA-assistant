@@ -14,10 +14,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 /**
+ * <p>
  * 全局异常处理
+ * </p>
  *
- * @author ryan
- * @date 2021/4/22
+ * @author Ryan
+ * @since 2021-08-14
  */
 @RestControllerAdvice
 @Slf4j

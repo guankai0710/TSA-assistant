@@ -5,11 +5,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 类描述：qo基类
+ * <p>
+ * qo查询条件基础类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/25
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 @Data
 public class BaseQo implements Serializable {
 

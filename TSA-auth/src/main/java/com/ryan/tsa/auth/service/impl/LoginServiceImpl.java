@@ -19,11 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 类描述：登录、注册、退出
+ * <p>
+ * 登录、注册、退出 实现类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/29
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 @Service
 @Slf4j
 public class LoginServiceImpl implements ILoginService {

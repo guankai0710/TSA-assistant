@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 类描述：前端控制器基础类
+ * <p>
+ * 前端控制器基础类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/29
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public class BaseController {
 
     /**

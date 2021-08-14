@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 客户信息  服务类
+ * 客户信息 服务类
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
-public interface CustomerService extends IService<Customer> {
+public interface ICustomerService extends IService<Customer> {
 
 }

@@ -2,14 +2,18 @@ package com.ryan.tsa.common.exception;
 
 import com.ryan.tsa.common.response.ResultCode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * <p>
  * 自定义业务异常
+ * </p>
  *
- * @author ryan
- * @date 2021/7/17
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

@@ -2,23 +2,23 @@ package com.ryan.tsa.web.business.qo;
 
 import com.ryan.tsa.common.qo.BaseQo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * <p>
- * 交易记录 
+ * 交易记录
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BusinessRecordQo extends BaseQo implements Serializable {
 
     private static final long serialVersionUID=1L;
-
 
     /**
      * 用户id
@@ -31,14 +31,9 @@ public class BusinessRecordQo extends BaseQo implements Serializable {
     private Integer customerId;
 
     /**
-     * 股票名称
+     * 股票名称/股票代码
      */
-    private String stockName;
-
-    /**
-     * 股票代码
-     */
-    private String stockCode;
+    private String stockNameOrStockCode;
 
     /**
      * 买入时间
@@ -54,11 +49,6 @@ public class BusinessRecordQo extends BaseQo implements Serializable {
      * 卖出时间
      */
     private String sellTime;
-
-    /**
-     * 收益率
-     */
-    private BigDecimal incomeRate;
 
 
 }

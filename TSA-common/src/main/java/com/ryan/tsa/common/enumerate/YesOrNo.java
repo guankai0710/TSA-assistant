@@ -6,14 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 类描述：是/否 枚举类
+ * <p>
+ * 是/否 枚举类
+ * </p>
  *
- * @author ryan
- * @date 2021/4/28
- **/
+ * @author Ryan
+ * @since 2021-08-14
+ */
 public enum YesOrNo {
 
+    /** 是 */
     YES(1,"是"),
+
+    /** 否 */
     NO(0,"否");
 
     public Integer value;

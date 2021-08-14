@@ -1,18 +1,18 @@
 package com.ryan.tsa.web.customer.controller;
 
 
-import com.ryan.tsa.common.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import com.ryan.tsa.common.controller.BaseController;
 
 /**
  * <p>
- * 客户信息  前端控制器
+ * 客户信息 前端控制器
  * </p>
  *
- * @author ryan
- * @since 2021-07-12
+ * @author Ryan
+ * @since 2021-08-14
  */
 @RestController
 @RequestMapping("/web.customer/customer")
